@@ -9,21 +9,36 @@
 /* Begin PBXBuildFile section */
 		CEA72C082B8A121B00D4566B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C072B8A121B00D4566B /* AppDelegate.swift */; };
 		CEA72C0A2B8A121B00D4566B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C092B8A121B00D4566B /* SceneDelegate.swift */; };
-		CEA72C0C2B8A121B00D4566B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C0B2B8A121B00D4566B /* ViewController.swift */; };
-		CEA72C0F2B8A121B00D4566B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA72C0D2B8A121B00D4566B /* Main.storyboard */; };
+		CEA72C0C2B8A121B00D4566B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C0B2B8A121B00D4566B /* HomeView.swift */; };
 		CEA72C112B8A121D00D4566B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA72C102B8A121D00D4566B /* Assets.xcassets */; };
 		CEA72C142B8A121D00D4566B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA72C122B8A121D00D4566B /* LaunchScreen.storyboard */; };
+		CEA72C212B8A163300D4566B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEA72C202B8A163300D4566B /* SnapKit */; };
+		CEA72C242B8A225000D4566B /* MakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C232B8A225000D4566B /* MakerView.swift */; };
+		CEA72C282B8A342E00D4566B /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C272B8A342E00D4566B /* NoteCell.swift */; };
+		CEA72C2A2B8A425700D4566B /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C292B8A425700D4566B /* HomeController.swift */; };
+		CEA72C2C2B8A426400D4566B /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C2B2B8A426400D4566B /* HomeModel.swift */; };
+		CEA72C2E2B8A436500D4566B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C2D2B8A436500D4566B /* SettingsViewController.swift */; };
+		CEA72C312B8A4E0200D4566B /* FirstCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C302B8A4E0200D4566B /* FirstCustomView.swift */; };
+		CEA72C332B8A5ABD00D4566B /* SecondCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C322B8A5ABD00D4566B /* SecondCustomView.swift */; };
+		CEA72C362B8A5BD500D4566B /* ThirdCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C352B8A5BD500D4566B /* ThirdCustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CEA72C042B8A121B00D4566B /* HW5.1MyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW5.1MyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA72C072B8A121B00D4566B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA72C092B8A121B00D4566B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CEA72C0B2B8A121B00D4566B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CEA72C0E2B8A121B00D4566B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CEA72C0B2B8A121B00D4566B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CEA72C102B8A121D00D4566B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEA72C132B8A121D00D4566B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEA72C152B8A121D00D4566B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEA72C232B8A225000D4566B /* MakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerView.swift; sourceTree = "<group>"; };
+		CEA72C272B8A342E00D4566B /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		CEA72C292B8A425700D4566B /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		CEA72C2B2B8A426400D4566B /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		CEA72C2D2B8A436500D4566B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		CEA72C302B8A4E0200D4566B /* FirstCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCustomView.swift; sourceTree = "<group>"; };
+		CEA72C322B8A5ABD00D4566B /* SecondCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCustomView.swift; sourceTree = "<group>"; };
+		CEA72C352B8A5BD500D4566B /* ThirdCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdCustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA72C212B8A163300D4566B /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +72,78 @@
 		CEA72C062B8A121B00D4566B /* HW5.1MyNotes */ = {
 			isa = PBXGroup;
 			children = (
-				CEA72C072B8A121B00D4566B /* AppDelegate.swift */,
-				CEA72C092B8A121B00D4566B /* SceneDelegate.swift */,
-				CEA72C0B2B8A121B00D4566B /* ViewController.swift */,
-				CEA72C0D2B8A121B00D4566B /* Main.storyboard */,
-				CEA72C102B8A121D00D4566B /* Assets.xcassets */,
-				CEA72C122B8A121D00D4566B /* LaunchScreen.storyboard */,
+				CEA72C1D2B8A127500D4566B /* AppDelegate */,
+				CEA72C252B8A33F800D4566B /* Modules */,
+				CEA72C222B8A222F00D4566B /* MakerView */,
+				CEA72C1B2B8A125E00D4566B /* Resourse */,
 				CEA72C152B8A121D00D4566B /* Info.plist */,
 			);
 			path = HW5.1MyNotes;
+			sourceTree = "<group>";
+		};
+		CEA72C1B2B8A125E00D4566B /* Resourse */ = {
+			isa = PBXGroup;
+			children = (
+				CEA72C102B8A121D00D4566B /* Assets.xcassets */,
+				CEA72C122B8A121D00D4566B /* LaunchScreen.storyboard */,
+			);
+			path = Resourse;
+			sourceTree = "<group>";
+		};
+		CEA72C1D2B8A127500D4566B /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				CEA72C092B8A121B00D4566B /* SceneDelegate.swift */,
+				CEA72C072B8A121B00D4566B /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		CEA72C222B8A222F00D4566B /* MakerView */ = {
+			isa = PBXGroup;
+			children = (
+				CEA72C232B8A225000D4566B /* MakerView.swift */,
+			);
+			path = MakerView;
+			sourceTree = "<group>";
+		};
+		CEA72C252B8A33F800D4566B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				CEA72C2F2B8A436E00D4566B /* Settings */,
+				CEA72C262B8A340600D4566B /* Home */,
+				CEA72C342B8A5B9300D4566B /* CustomViews */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		CEA72C262B8A340600D4566B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CEA72C0B2B8A121B00D4566B /* HomeView.swift */,
+				CEA72C272B8A342E00D4566B /* NoteCell.swift */,
+				CEA72C292B8A425700D4566B /* HomeController.swift */,
+				CEA72C2B2B8A426400D4566B /* HomeModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CEA72C2F2B8A436E00D4566B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CEA72C2D2B8A436500D4566B /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		CEA72C342B8A5B9300D4566B /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				CEA72C302B8A4E0200D4566B /* FirstCustomView.swift */,
+				CEA72C352B8A5BD500D4566B /* ThirdCustomView.swift */,
+				CEA72C322B8A5ABD00D4566B /* SecondCustomView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +162,9 @@
 			dependencies = (
 			);
 			name = HW5.1MyNotes;
+			packageProductDependencies = (
+				CEA72C202B8A163300D4566B /* SnapKit */,
+			);
 			productName = HW5.1MyNotes;
 			productReference = CEA72C042B8A121B00D4566B /* HW5.1MyNotes.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +193,9 @@
 				Base,
 			);
 			mainGroup = CEA72BFB2B8A121A00D4566B;
+			packageReferences = (
+				CEA72C1F2B8A163300D4566B /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = CEA72C052B8A121B00D4566B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +212,6 @@
 			files = (
 				CEA72C142B8A121D00D4566B /* LaunchScreen.storyboard in Resources */,
 				CEA72C112B8A121D00D4566B /* Assets.xcassets in Resources */,
-				CEA72C0F2B8A121B00D4566B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +222,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA72C0C2B8A121B00D4566B /* ViewController.swift in Sources */,
+				CEA72C362B8A5BD500D4566B /* ThirdCustomView.swift in Sources */,
+				CEA72C0C2B8A121B00D4566B /* HomeView.swift in Sources */,
+				CEA72C312B8A4E0200D4566B /* FirstCustomView.swift in Sources */,
+				CEA72C242B8A225000D4566B /* MakerView.swift in Sources */,
+				CEA72C2A2B8A425700D4566B /* HomeController.swift in Sources */,
+				CEA72C2C2B8A426400D4566B /* HomeModel.swift in Sources */,
+				CEA72C332B8A5ABD00D4566B /* SecondCustomView.swift in Sources */,
+				CEA72C282B8A342E00D4566B /* NoteCell.swift in Sources */,
 				CEA72C082B8A121B00D4566B /* AppDelegate.swift in Sources */,
 				CEA72C0A2B8A121B00D4566B /* SceneDelegate.swift in Sources */,
+				CEA72C2E2B8A436500D4566B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CEA72C0D2B8A121B00D4566B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CEA72C0E2B8A121B00D4566B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CEA72C122B8A121D00D4566B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -291,9 +375,9 @@
 				INFOPLIST_FILE = HW5.1MyNotes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,9 +402,9 @@
 				INFOPLIST_FILE = HW5.1MyNotes/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -356,6 +440,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEA72C1F2B8A163300D4566B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEA72C202B8A163300D4566B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEA72C1F2B8A163300D4566B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEA72BFC2B8A121A00D4566B /* Project object */;
 }
