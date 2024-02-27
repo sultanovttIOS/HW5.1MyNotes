@@ -72,8 +72,9 @@
 		CEA72C062B8A121B00D4566B /* HW5.1MyNotes */ = {
 			isa = PBXGroup;
 			children = (
-				CEA72C1D2B8A127500D4566B /* AppDelegate */,
 				CEA72C252B8A33F800D4566B /* Modules */,
+				CEA72C1D2B8A127500D4566B /* AppDelegate */,
+				CEA72C342B8A5B9300D4566B /* CustomViews */,
 				CEA72C222B8A222F00D4566B /* MakerView */,
 				CEA72C1B2B8A125E00D4566B /* Resourse */,
 				CEA72C152B8A121D00D4566B /* Info.plist */,
@@ -112,7 +113,6 @@
 			children = (
 				CEA72C2F2B8A436E00D4566B /* Settings */,
 				CEA72C262B8A340600D4566B /* Home */,
-				CEA72C342B8A5B9300D4566B /* CustomViews */,
 			);
 			path = Modules;
 			sourceTree = "<group>";

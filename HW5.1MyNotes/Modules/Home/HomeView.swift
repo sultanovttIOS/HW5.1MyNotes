@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeView: UIViewController {
-
+    
     private let notes: [String] = ["Schools notes", "Funny jokes", "Travel basket list", "Do homework"]
     
     private lazy var searchBar = MakerView.shared.makerSearchBar(placeholder: "Search")
@@ -35,19 +35,19 @@ class HomeView: UIViewController {
         
         setupUI()
     }
-
+    
     private func setupUI() {
         setupNavigationItem()
         view.backgroundColor = .systemBackground
         setupConstraints()
-        }
+    }
     
     private func setupNavigationItem() {
         navigationItem.title = "Title"
         
         let customButton = UIButton(type: .system)
         let image = UIImage(named: "settings_icon")
-        let desiredSize = CGSize(width: 30, height: 30)
+        let desiredSize = CGSize(width: 25, height: 25)
         let scaledImage = image?.resized(to: desiredSize)
         customButton.setImage(scaledImage, for: .normal)
         customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
@@ -59,7 +59,7 @@ class HomeView: UIViewController {
         let sv = SettingsViewController()
         navigationController?.pushViewController(sv, animated: true)
     }
-
+    
     private func setupConstraints() {
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in

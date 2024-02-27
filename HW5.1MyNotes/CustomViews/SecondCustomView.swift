@@ -34,7 +34,7 @@ class SecondCustomView: UIView {
         addSubview(photoView)
         photoView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(15)
             make.width.height.equalTo(22)
         }
         addSubview(titleLabel)

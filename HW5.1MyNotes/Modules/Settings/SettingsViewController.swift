@@ -4,9 +4,7 @@
 //
 //  Created by Alisher Sultanov on 24/2/24.
 //
-import Foundation
 import UIKit
-import SnapKit
 
 class SettingsViewController: UIViewController {
     
@@ -44,10 +42,10 @@ class SettingsViewController: UIViewController {
     
     private func setupNavigationItem() {
         navigationItem.title = "Settings"
-      
+        
         let customButton = UIButton(type: .system)
         let image = UIImage(named: "settings_icon")
-        let desiredSize = CGSize(width: 30, height: 30)
+        let desiredSize = CGSize(width: 25, height: 25)
         let scaledImage = image?.resized(to: desiredSize)
         customButton.setImage(scaledImage, for: .normal)
         customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)

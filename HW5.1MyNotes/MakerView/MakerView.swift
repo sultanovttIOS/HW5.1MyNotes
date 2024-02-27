@@ -63,7 +63,6 @@ class MakerView {
     func makerView(backgroundColor: UIColor) -> UIView {
         let view = UIView()
         view.backgroundColor = backgroundColor
-//        view.layer.cornerRadius = 10
         view.clipsToBounds = true
         return view
     }

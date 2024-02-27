@@ -9,16 +9,25 @@ import UIKit
 import SnapKit
 
 class FirstCustomView: UIView {
-    
-    //private lazy var languageView = MakerView.shared.makerView(backgroundColor: .blue)
-    
+        
     private lazy var photoView = MakerView.shared.makerImageView(image: "language_icon")
     
     private lazy var titleLabel = MakerView.shared.makerLabel(text: "Язык", numberOfLines: 1, font: .systemFont(ofSize: 17))
     
     private lazy var languageLabel = MakerView.shared.makerLabel(text: "Русский", numberOfLines: 1, font: .systemFont(ofSize: 14))
-    
-    private lazy var rightButton = MakerView.shared.makerButton(imageName: "rightButton_icon", backgroundColor: .clear, cornerRadius: 0, tintColor: .black)
+
+    private lazy var rightButton: UIButton = {
+        var configuration = UIButton.Configuration.plain()
+        configuration.attributedTitle = "Русский"
+        configuration.titleAlignment = .leading
+        configuration.image = UIImage(systemName: "chevron.right")
+        configuration.imagePlacement = .trailing
+        configuration.imagePadding = 10
+        let view = UIButton(configuration: configuration)
+        view.tintColor = .black
+        
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +44,7 @@ class FirstCustomView: UIView {
         addSubview(photoView)
         photoView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(15)
             make.width.height.equalTo(22)
         }
         addSubview(titleLabel)
@@ -47,17 +56,10 @@ class FirstCustomView: UIView {
         }
         addSubview(rightButton)
         rightButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-30)
+            make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
-            make.height.equalTo(13.8)
-            make.width.equalTo(8)
-        }
-        addSubview(languageLabel)
-        languageLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(rightButton.snp.leading).offset(-5)
             make.height.equalTo(20)
-            make.width.equalTo(58)
+            make.width.equalTo(125)
         }
     }
 }
