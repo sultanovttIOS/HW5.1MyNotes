@@ -12,27 +12,32 @@ class SettingsCell: UITableViewCell {
         
     static let reiseID = "settings_cell"
     
-    private lazy var photoView = MakerView.shared.makerImageView(imageName: "")
+    private lazy var photoView = UIImageView()
     
-    private lazy var titleLabel = MakerView.shared.makerLabel(text: "Язык", numberOfLines: 1, font: .systemFont(ofSize: 17))
+    private lazy var titleLabel = MakerView.shared.makerLabel(numberOfLines: 1, font: .systemFont(ofSize: 17))
     
-    private lazy var languageLabel = MakerView.shared.makerLabel(text: "Русский", numberOfLines: 1, font: .systemFont(ofSize: 14))
-
-    private lazy var rightButton: UIButton = {
-        var configuration = UIButton.Configuration.plain()
-        configuration.attributedTitle = "Русский"
-        configuration.titleAlignment = .leading
-        configuration.image = UIImage(named: "rightButton_icon")
-        configuration.imagePlacement = .trailing
-        configuration.imagePadding = 10
-        let view = UIButton(configuration: configuration)
+    var rightButton: UIButton = {
+        let view = UIButton(type: .system)
+        let image = UIImage(named: "rightButton_icon")
+        let desiredSize = CGSize(width: 8, height: 13.8)
+        let scaledImage = image?.resized(to: desiredSize)
+        view.setTitle("Русский", for: .normal)
         view.tintColor = .black
-        
+        view.setTitleColor(.darkGray, for: .normal)
+        view.setImage(scaledImage, for: .normal)
+        view.semanticContentAttribute = .forceRightToLeft
+        view.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -15)
         return view
     }()
     
+    var switchButton: UISwitch = {
+          let view = UISwitch()
+          return view
+      }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .systemGray5
         setupConstraints()
     }
     
@@ -40,32 +45,42 @@ class SettingsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func fill(_ imageName: String) {
+    override func prepareForReuse() {
+           super.prepareForReuse()
+           photoView.image = nil
+           titleLabel.text = nil
+       }
+    
+    func fill(_ imageName: String, title: String) {
         photoView.image = UIImage(named: imageName)
+        titleLabel.text = title
     }
     
     private func setupConstraints() {
-        backgroundColor = .systemGray6
-        clipsToBounds = true
         contentView.addSubview(photoView)
         photoView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(15)
-            make.width.height.equalTo(22)
+            make.leading.equalToSuperview().offset(16)
+            make.width.height.equalTo(24)
         }
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(photoView.snp.trailing).offset(10)
-            make.width.equalTo(43)
+            make.leading.equalTo(photoView.snp.trailing).offset(13)
             make.height.equalTo(24)
         }
         contentView.addSubview(rightButton)
         rightButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.centerY.equalToSuperview()
+            make.trailing.equalTo(contentView).offset(-25)
+            make.centerY.equalTo(contentView)
             make.height.equalTo(20)
-            make.width.equalTo(125)
+        }
+        contentView.addSubview(switchButton)
+            switchButton.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView)
+            make.trailing.equalTo(contentView).offset(-25)
+            make.width.equalTo(51)
+            make.height.equalTo(31)
         }
     }
 }

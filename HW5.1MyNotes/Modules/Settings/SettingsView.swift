@@ -6,13 +6,13 @@
 //
 import UIKit
 
-class SettingsView: UIViewController, UITableViewDelegate {
+class SettingsView: UIViewController {
     
     private lazy var settingsTableView = UITableView()
     
-    private lazy var images: [Image] = [Image(imageName: "language_icon"),
-                                        Image(imageName: "them_icon"),
-                                        Image(imageName: "delete_icon")]
+    private lazy var images: [SetImageTitleStruct] = [SetImageTitleStruct(image: "language_icon", title: "Язык"),
+                                        SetImageTitleStruct(image: "them_icon", title: "Темная тема"),
+                                        SetImageTitleStruct(image: "delete_icon", title: "Очистить данные")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,7 @@ class SettingsView: UIViewController, UITableViewDelegate {
         let desiredSize = CGSize(width: 25, height: 25)
         let scaledImage = image?.resized(to: desiredSize)
         customButton.setImage(scaledImage, for: .normal)
+        customButton.tintColor = .black
         customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         
         let rightBarButton = UIBarButtonItem(customView: customButton)
@@ -58,7 +59,7 @@ class SettingsView: UIViewController, UITableViewDelegate {
     }
 }
 
-extension SettingsView: UITableViewDataSource {
+extension SettingsView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         images.count
     }
@@ -66,12 +67,20 @@ extension SettingsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reiseID,
                                                  for: indexPath) as! SettingsCell
-        let image = images[indexPath.row]
-        cell.fill(image.imageName) // Передаем имя файла изображения
+        if indexPath.row == 0 {
+            cell.contentView.addSubview(cell.rightButton)
+        } else {
+            cell.rightButton.removeFromSuperview()
+        }
+        if indexPath.row == 1 {
+            cell.contentView.addSubview(cell.switchButton)
+        } else {
+            cell.switchButton.removeFromSuperview()
+        }
+        cell.fill(images[indexPath.row].image, title: images[indexPath.row].title)
         return cell
     }
 }
-
 
 extension UIImage {
     func resized(to size: CGSize) -> UIImage {

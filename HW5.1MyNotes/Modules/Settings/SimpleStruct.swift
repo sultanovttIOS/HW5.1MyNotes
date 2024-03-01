@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Image {
+struct SetImageTitleStruct {
     let image: String
     let title: String
 }

@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol HomeViewProtocol {
+    func successNotes(notes: [String])
+}
 class HomeView: UIViewController {
     
-    private let notes: [String] = ["Schools notes", "Funny jokes", "Travel basket list", "Do homework"]
+    private var controller: HomeControllerProtocol?
+
+    private var notes: [String] = []
     
     private lazy var searchBar = MakerView.shared.makerSearchBar(placeholder: "Search")
     
@@ -40,6 +45,8 @@ class HomeView: UIViewController {
         setupNavigationItem()
         view.backgroundColor = .systemBackground
         setupConstraints()
+        controller = HomeController(view: self)
+        controller?.onGetNotes()
     }
     
     private func setupNavigationItem() {
@@ -50,13 +57,14 @@ class HomeView: UIViewController {
         let desiredSize = CGSize(width: 25, height: 25)
         let scaledImage = image?.resized(to: desiredSize)
         customButton.setImage(scaledImage, for: .normal)
+        customButton.tintColor = .black
         customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         
         let rightBarButton = UIBarButtonItem(customView: customButton)
         navigationItem.rightBarButtonItem = rightBarButton
     }
     @objc func settingsButtonTapped(_ sender: UIButton) {
-        let sv = SettingsViewController()
+        let sv = SettingsView()
         navigationController?.pushViewController(sv, animated: true)
     }
     
@@ -93,6 +101,13 @@ class HomeView: UIViewController {
     }
 }
 
+extension HomeView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (collectionView.frame.width - 12) / 2, height: 100)
+    }
+}
+
 extension HomeView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         notes.count
@@ -105,9 +120,11 @@ extension HomeView: UICollectionViewDataSource {
     }
 }
 
-extension HomeView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.frame.width - 12) / 2, height: 100)
+extension HomeView: HomeViewProtocol {
+    func successNotes(notes: [String]) {
+        self.notes = notes
+        notesCollectionView.reloadData()
     }
+    
+    
 }

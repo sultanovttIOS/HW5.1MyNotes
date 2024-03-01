@@ -12,9 +12,9 @@ class MakerView {
     
     static let shared = MakerView()
     
-    func makerImageView(image: String) -> UIImageView {
+    func makerImageView(imageName: String? = nil) -> UIImageView {
         let view = UIImageView()
-        view.image = UIImage(named: image)
+        view.image = UIImage(named: imageName ?? "dd")
         view.contentMode = .scaleAspectFill
         return view
     }
@@ -37,7 +37,7 @@ class MakerView {
         return view
     }
     
-    func makerLabel(text: String, textColor: UIColor = .black, numberOfLines: Int, textAlignment: NSTextAlignment = .left, font: UIFont) -> UILabel {
+    func makerLabel(text: String? = nil, textColor: UIColor = .black, numberOfLines: Int, textAlignment: NSTextAlignment = .left, font: UIFont) -> UILabel {
         let view = UILabel()
         view.text = text
         view.textColor = textColor
