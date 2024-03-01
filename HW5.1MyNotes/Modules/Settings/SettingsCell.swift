@@ -8,9 +8,11 @@
 import UIKit
 import SnapKit
 
-class FirstCustomView: UIView {
+class SettingsCell: UITableViewCell {
         
-    private lazy var photoView = MakerView.shared.makerImageView(image: "language_icon")
+    static let reiseID = "settings_cell"
+    
+    private lazy var photoView = MakerView.shared.makerImageView(imageName: "")
     
     private lazy var titleLabel = MakerView.shared.makerLabel(text: "Язык", numberOfLines: 1, font: .systemFont(ofSize: 17))
     
@@ -20,7 +22,7 @@ class FirstCustomView: UIView {
         var configuration = UIButton.Configuration.plain()
         configuration.attributedTitle = "Русский"
         configuration.titleAlignment = .leading
-        configuration.image = UIImage(systemName: "chevron.right")
+        configuration.image = UIImage(named: "rightButton_icon")
         configuration.imagePlacement = .trailing
         configuration.imagePadding = 10
         let view = UIButton(configuration: configuration)
@@ -29,8 +31,8 @@ class FirstCustomView: UIView {
         return view
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
     }
     
@@ -38,23 +40,27 @@ class FirstCustomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func fill(_ imageName: String) {
+        photoView.image = UIImage(named: imageName)
+    }
+    
     private func setupConstraints() {
         backgroundColor = .systemGray6
         clipsToBounds = true
-        addSubview(photoView)
+        contentView.addSubview(photoView)
         photoView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(15)
             make.width.height.equalTo(22)
         }
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(photoView.snp.trailing).offset(10)
             make.width.equalTo(43)
             make.height.equalTo(24)
         }
-        addSubview(rightButton)
+        contentView.addSubview(rightButton)
         rightButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()

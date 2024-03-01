@@ -6,15 +6,13 @@
 //
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsView: UIViewController, UITableViewDelegate {
     
-    private lazy var stackView = MakerView.shared.makerStackView(backgroundColor: .lightGray)
+    private lazy var settingsTableView = UITableView()
     
-    private lazy var firstView = FirstCustomView()
-    
-    private lazy var secondView = SecondCustomView()
-    
-    private lazy var thirdView = ThirdCustomView()
+    private lazy var images: [Image] = [Image(imageName: "language_icon"),
+                                        Image(imageName: "them_icon"),
+                                        Image(imageName: "delete_icon")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,18 +24,19 @@ class SettingsViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupNavigationItem()
         setupConstraints()
+        settingsTableView.dataSource = self
+        settingsTableView.delegate = self
+        settingsTableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reiseID)
     }
     
     private func setupConstraints() {
-        view.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+        view.addSubview(settingsTableView)
+        settingsTableView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview().inset(10)
-            make.height.equalTo(200)
-            stackView.addArrangedSubview(firstView)
-            stackView.addArrangedSubview(secondView)
-            stackView.addArrangedSubview(thirdView)
+            make.height.equalTo(151)
         }
+        settingsTableView.layer.cornerRadius = 10
     }
     
     private func setupNavigationItem() {
@@ -58,6 +57,21 @@ class SettingsViewController: UIViewController {
         
     }
 }
+
+extension SettingsView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        images.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reiseID,
+                                                 for: indexPath) as! SettingsCell
+        let image = images[indexPath.row]
+        cell.fill(image.imageName) // Передаем имя файла изображения
+        return cell
+    }
+}
+
 
 extension UIImage {
     func resized(to size: CGSize) -> UIImage {
