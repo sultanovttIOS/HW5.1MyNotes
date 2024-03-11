@@ -8,8 +8,14 @@
 import UIKit
 import SnapKit
 
+protocol ThemeSwitchDelegate: AnyObject {
+    func didChangeTheme(isOn: Bool)
+}
+
 class SettingsCell: UITableViewCell {
-        
+            
+    weak var delegate: ThemeSwitchDelegate?
+
     static let reiseID = "settings_cell"
     
     private lazy var photoView = UIImageView()
@@ -23,7 +29,7 @@ class SettingsCell: UITableViewCell {
         let scaledImage = image?.resized(to: desiredSize)
         view.setTitle("Русский", for: .normal)
         view.tintColor = .black
-        view.setTitleColor(.darkGray, for: .normal)
+        view.setTitleColor(.label, for: .normal)
         view.setImage(scaledImage, for: .normal)
         view.semanticContentAttribute = .forceRightToLeft
         view.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -15)
@@ -31,14 +37,20 @@ class SettingsCell: UITableViewCell {
     }()
     
     var switchButton: UISwitch = {
-          let view = UISwitch()
-          return view
-      }()
+        let view = UISwitch()
+        view.isOn = UserDefaults.standard.bool(forKey: "theme")
+        view.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
+        return view
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .systemGray5
         setupConstraints()
+        contentView.backgroundColor = .secondarySystemBackground
+    }
+    
+    @objc func switchValueChanged(_ sender: UISwitch) {
+        delegate?.didChangeTheme(isOn: switchButton.isOn)
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +59,7 @@ class SettingsCell: UITableViewCell {
     
     override func prepareForReuse() {
            super.prepareForReuse()
+        contentView.backgroundColor = .secondarySystemBackground
            photoView.image = nil
            titleLabel.text = nil
        }

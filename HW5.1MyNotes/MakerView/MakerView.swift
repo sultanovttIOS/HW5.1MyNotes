@@ -37,7 +37,7 @@ class MakerView {
         return view
     }
     
-    func makerLabel(text: String? = nil, textColor: UIColor = .black, numberOfLines: Int, textAlignment: NSTextAlignment = .left, font: UIFont) -> UILabel {
+    func makerLabel(text: String? = nil, textColor: UIColor = .label, numberOfLines: Int, textAlignment: NSTextAlignment = .left, font: UIFont) -> UILabel {
         let view = UILabel()
         view.text = text
         view.textColor = textColor

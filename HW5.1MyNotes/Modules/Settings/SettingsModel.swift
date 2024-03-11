@@ -5,4 +5,19 @@
 //  Created by Alisher Sultanov on 1/3/24.
 //
 
-import Foundation
+protocol SettingsModelProtocol {
+    
+}
+
+class SettingsModel {
+    
+    weak var controller: SettingsControllerProtocol?
+    
+    init(controller: SettingsControllerProtocol?) {
+        self.controller = controller
+    }
+}
+
+extension SettingsModel: SettingsModelProtocol {
+    
+}

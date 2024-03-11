@@ -32,8 +32,10 @@ class HomeView: UIViewController {
         return view
     }()
     
-    private lazy var addButton = MakerView.shared.makerButton(title: "+", backgroundColor: .red,
-                                                              cornerRadius: 42 / 2, tintColor: .white)
+    private lazy var addButton = MakerView.shared.makerButton(title: "+", 
+                                                              backgroundColor: UIColor(named: "CustomRed")!,
+                                                              cornerRadius: 42 / 2,
+                                                              tintColor: .white)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +44,26 @@ class HomeView: UIViewController {
     }
     
     private func setupUI() {
-        setupNavigationItem()
         view.backgroundColor = .systemBackground
         setupConstraints()
         controller = HomeController(view: self)
         controller?.onGetNotes()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesBackButton = true
+        setupNavigationItem()
+
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            view.overrideUserInterfaceStyle = .dark
+        } else {
+            view.overrideUserInterfaceStyle = .light
+        }
+    }
+    
     private func setupNavigationItem() {
-        navigationItem.title = "Title"
+        navigationItem.title = "Home"
         
         let customButton = UIButton(type: .system)
         let image = UIImage(named: "settings_icon")
@@ -60,9 +73,23 @@ class HomeView: UIViewController {
         customButton.tintColor = .black
         customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            customButton.tintColor = .white
+        } else {
+            customButton.tintColor = .black
+        }
         let rightBarButton = UIBarButtonItem(customView: customButton)
         navigationItem.rightBarButtonItem = rightBarButton
+        
+//        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsButtonTapped))
+//        if UserDefaults.standard.bool(forKey: "theme") == true {
+//            rightBarButton.tintColor = .white
+//        } else {
+//            rightBarButton.tintColor = .black
+//        }
+//        navigationItem.rightBarButtonItem = rightBarButton
     }
+    
     @objc func settingsButtonTapped(_ sender: UIButton) {
         let sv = SettingsView()
         navigationController?.pushViewController(sv, animated: true)
@@ -97,7 +124,11 @@ class HomeView: UIViewController {
             make.centerX.equalTo(view.snp.centerX)
             
             addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+            addButton.addTarget(self, action: #selector(addNotesButtonTapped), for: .touchUpInside)
         }
+    }
+    @objc func addNotesButtonTapped() {
+        navigationController?.pushViewController(AddNotesView(), animated: true)
     }
 }
 
