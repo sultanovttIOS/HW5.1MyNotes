@@ -35,13 +35,6 @@ class NoteCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var deleteButton: UIButton = {
-        let view = UIButton(type: .system)
-        view.setImage(UIImage(systemName: "trash"), for: .normal)
-        view.tintColor = .darkGray
-        return  view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -70,11 +63,6 @@ class NoteCell: UICollectionViewCell {
             make.left.equalToSuperview().offset(10)
             make.height.equalTo(17)
             make.right.equalToSuperview().offset(-10)
-        }
-        addSubview(deleteButton)
-        deleteButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-10)
-            make.trailing.equalToSuperview().offset(-10)
         }
     }
     
