@@ -8,15 +8,24 @@
 import UIKit
 
 protocol HomeViewProtocol {
-    func successNotes(notes: [String])
+    func successNotes(notes: [Note] )
 }
 class HomeView: UIViewController {
     
     private var controller: HomeControllerProtocol?
-
-    private var notes: [String] = []
     
-    private lazy var searchBar = MakerView.shared.makerSearchBar(placeholder: "Search")
+    private var notes: [Note] = []
+    
+    private var filteredNotes: [Note] = []
+    
+    private lazy var searchBar: UISearchBar = {
+        let view = UISearchBar()
+        view.layer.cornerRadius = 10
+        view.placeholder = "Search"
+        //view.delegate = self
+        view.searchTextField.addTarget(self, action: #selector(notesSearchBarEditingChanged), for: .editingChanged)
+        return view
+    }()
     
     private lazy var titleLabel = MakerView.shared.makerLabel(text: "Notes", numberOfLines: 0,
                                                               font: .systemFont(ofSize: 16, weight: .regular))
@@ -29,6 +38,7 @@ class HomeView: UIViewController {
         view.dataSource = self
         view.delegate = self
         view.register(NoteCell.self, forCellWithReuseIdentifier: NoteCell.reuseId)
+        view.isScrollEnabled = true
         return view
     }()
     
@@ -36,6 +46,10 @@ class HomeView: UIViewController {
                                                               backgroundColor: UIColor(named: "CustomRed")!,
                                                               cornerRadius: 42 / 2,
                                                               tintColor: .white)
+    
+    deinit {
+        print("Экран HomeView уничтожился с памяти")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +61,6 @@ class HomeView: UIViewController {
         view.backgroundColor = .systemBackground
         setupConstraints()
         controller = HomeController(view: self)
-        controller?.onGetNotes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +73,8 @@ class HomeView: UIViewController {
         } else {
             view.overrideUserInterfaceStyle = .light
         }
+        
+        controller?.onGetNotes()
     }
     
     private func setupNavigationItem() {
@@ -95,6 +110,23 @@ class HomeView: UIViewController {
         navigationController?.pushViewController(sv, animated: true)
     }
     
+    @objc func notesSearchBarEditingChanged() {
+//        if let text = searchBar.text  {
+//            filteredNotes = []
+//            if text.isEmpty {
+//                filteredNotes = notes
+//            } else {
+//                filteredNotes = notes.filter({ note in note.lowercased().contains(text.lowercased())
+//                })
+//            }
+//            notesCollectionView.reloadData()
+//        }
+    }
+    
+    @objc func addNotesButtonTapped() {
+        navigationController?.pushViewController(AddNotesView(), animated: true)
+    }
+    
     private func setupConstraints() {
         view.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
@@ -127,9 +159,6 @@ class HomeView: UIViewController {
             addButton.addTarget(self, action: #selector(addNotesButtonTapped), for: .touchUpInside)
         }
     }
-    @objc func addNotesButtonTapped() {
-        navigationController?.pushViewController(AddNotesView(), animated: true)
-    }
 }
 
 extension HomeView: UICollectionViewDelegateFlowLayout {
@@ -137,25 +166,48 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 12) / 2, height: 100)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newNoteView = AddNotesView()
+        newNoteView.note = filteredNotes[indexPath.row]
+        navigationController?.pushViewController(newNoteView, animated: true)
+    }
 }
 
 extension HomeView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        notes.count
+        filteredNotes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCell.reuseId, for: indexPath) as! NoteCell
-        cell.fill(title: notes[indexPath.row])
+        cell.fill(title: filteredNotes[indexPath.row].title ?? "" )
+        cell.delegate = self
+        cell.index = indexPath.row
         return cell
     }
 }
 
 extension HomeView: HomeViewProtocol {
-    func successNotes(notes: [String]) {
+    
+    func successNotes(notes: [Note]) {
         self.notes = notes
+        self.filteredNotes = notes
         notesCollectionView.reloadData()
     }
-    
-    
+}
+
+extension HomeView: NoteCellDelegate {
+    func didRemoveButton(index: Int) {
+        print(index)
+        notes.remove(at: index)
+        notesCollectionView.reloadData()
+    }
+}
+
+extension HomeView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        print(searchBar.text)
+        return true
+    }
 }

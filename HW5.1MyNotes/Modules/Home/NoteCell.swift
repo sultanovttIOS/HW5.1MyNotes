@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol NoteCellDelegate: AnyObject {
+    func didRemoveButton(index: Int)
+}
+
 class NoteCell: UICollectionViewCell {
     
     static var reuseId = "note_cell"
+        
+    weak var delegate: NoteCellDelegate?
+    
+    var index: Int?
     
     let colors: [UIColor] = [UIColor(named: "CustomNotesViolet")!,
                              UIColor(named: "CustomNSecondColor")!,
@@ -20,6 +28,18 @@ class NoteCell: UICollectionViewCell {
         let view = UILabel()
         view.textColor = .black
         return view
+    }()
+    
+    private lazy var notesTextView: UITextView = {
+        let view = UITextView()
+        return view
+    }()
+    
+    private lazy var deleteButton: UIButton = {
+        let view = UIButton(type: .system)
+        view.setImage(UIImage(systemName: "trash"), for: .normal)
+        view.tintColor = .darkGray
+        return  view
     }()
     
     override init(frame: CGRect) {
@@ -37,12 +57,24 @@ class NoteCell: UICollectionViewCell {
         setupConstraints()
     }
     
+    @objc func deleteButtonTapped() {
+        guard let index = index else { return }
+        
+        delegate?.didRemoveButton(index: index)
+    }
+    
     private func setupConstraints() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(10)
-            make.bottom.equalTo(-10)
-            make.horizontalEdges.equalToSuperview().inset(10)
+            make.left.equalToSuperview().offset(10)
+            make.height.equalTo(17)
+            make.right.equalToSuperview().offset(-10)
+        }
+        addSubview(deleteButton)
+        deleteButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-10)
+            make.trailing.equalToSuperview().offset(-10)
         }
     }
     

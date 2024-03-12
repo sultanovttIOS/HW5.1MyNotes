@@ -28,6 +28,10 @@
 		CEE81A1C2B9C860600EA8050 /* AddNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE81A1B2B9C860600EA8050 /* AddNotesView.swift */; };
 		CEE81A1F2B9C87F200EA8050 /* ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE81A1E2B9C87F200EA8050 /* ImageSize.swift */; };
 		CEE81A222B9C88BF00EA8050 /* CustomRed.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE81A212B9C88BF00EA8050 /* CustomRed.swift */; };
+		CEE81A272BA01BE100EA8050 /* Note.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEE81A252BA01BE100EA8050 /* Note.xcdatamodeld */; };
+		CEE81A2A2BA01DF800EA8050 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE81A282BA01DF800EA8050 /* Note+CoreDataClass.swift */; };
+		CEE81A2B2BA01DF800EA8050 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE81A292BA01DF800EA8050 /* Note+CoreDataProperties.swift */; };
+		CEE81A2F2BA01E8300EA8050 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE81A2E2BA01E8300EA8050 /* CoreDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,10 @@
 		CEE81A1B2B9C860600EA8050 /* AddNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesView.swift; sourceTree = "<group>"; };
 		CEE81A1E2B9C87F200EA8050 /* ImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSize.swift; sourceTree = "<group>"; };
 		CEE81A212B9C88BF00EA8050 /* CustomRed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRed.swift; sourceTree = "<group>"; };
+		CEE81A262BA01BE100EA8050 /* Note.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Note.xcdatamodel; sourceTree = "<group>"; };
+		CEE81A282BA01DF800EA8050 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CEE81A292BA01DF800EA8050 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CEE81A2E2BA01E8300EA8050 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +104,9 @@
 		CEA72C062B8A121B00D4566B /* HW5.1MyNotes */ = {
 			isa = PBXGroup;
 			children = (
+				CEE81A282BA01DF800EA8050 /* Note+CoreDataClass.swift */,
+				CEE81A292BA01DF800EA8050 /* Note+CoreDataProperties.swift */,
+				CEE81A2C2BA01E2000EA8050 /* Services */,
 				CEE81A202B9C88A100EA8050 /* Extension+UIColor */,
 				CEE81A1D2B9C877300EA8050 /* Extension+ImageSize */,
 				CEA72C252B8A33F800D4566B /* Modules */,
@@ -103,6 +114,7 @@
 				CEA72C222B8A222F00D4566B /* MakerView */,
 				CEA72C1B2B8A125E00D4566B /* Resourse */,
 				CEA72C152B8A121D00D4566B /* Info.plist */,
+				CEE81A252BA01BE100EA8050 /* Note.xcdatamodeld */,
 			);
 			path = HW5.1MyNotes;
 			sourceTree = "<group>";
@@ -191,6 +203,22 @@
 			path = "Extension+UIColor";
 			sourceTree = "<group>";
 		};
+		CEE81A2C2BA01E2000EA8050 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CEE81A2D2BA01E5700EA8050 /* CoreData */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CEE81A2D2BA01E5700EA8050 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CEE81A2E2BA01E8300EA8050 /* CoreDataService.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -277,13 +305,17 @@
 				CE631A0D2B91E6E000AF9523 /* SettingsController.swift in Sources */,
 				CE631A132B964ABD00AF9523 /* OnBoardingView.swift in Sources */,
 				CEA72C2C2B8A426400D4566B /* HomeModel.swift in Sources */,
+				CEE81A2B2BA01DF800EA8050 /* Note+CoreDataProperties.swift in Sources */,
+				CEE81A272BA01BE100EA8050 /* Note.xcdatamodeld in Sources */,
 				CEE81A1C2B9C860600EA8050 /* AddNotesView.swift in Sources */,
 				CEA72C282B8A342E00D4566B /* NoteCell.swift in Sources */,
 				CE631A152B964AE800AF9523 /* OnBoardingCell.swift in Sources */,
+				CEE81A2A2BA01DF800EA8050 /* Note+CoreDataClass.swift in Sources */,
 				CEE81A222B9C88BF00EA8050 /* CustomRed.swift in Sources */,
 				CEA72C082B8A121B00D4566B /* AppDelegate.swift in Sources */,
 				CEE81A1F2B9C87F200EA8050 /* ImageSize.swift in Sources */,
 				CEA72C0A2B8A121B00D4566B /* SceneDelegate.swift in Sources */,
+				CEE81A2F2BA01E8300EA8050 /* CoreDataService.swift in Sources */,
 				CEA72C2E2B8A436500D4566B /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,6 +543,19 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		CEE81A252BA01BE100EA8050 /* Note.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CEE81A262BA01BE100EA8050 /* Note.xcdatamodel */,
+			);
+			currentVersion = CEE81A262BA01BE100EA8050 /* Note.xcdatamodel */;
+			path = Note.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CEA72BFC2B8A121A00D4566B /* Project object */;
 }

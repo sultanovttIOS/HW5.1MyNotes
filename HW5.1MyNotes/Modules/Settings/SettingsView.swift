@@ -17,9 +17,15 @@ class SettingsView: UIViewController {
     
     private lazy var settingsTableView = UITableView()
     
-    private lazy var images: [SetImageTitleStruct] = [SetImageTitleStruct(image: "language_icon", title: "Язык"),
-                                        SetImageTitleStruct(image: "them_icon", title: "Темная тема"),
-                                        SetImageTitleStruct(image: "delete_icon", title: "Очистить данные")]
+    private lazy var images: [SetImageTitleStruct] = [
+        SetImageTitleStruct(image: "language_icon",
+                            title: "Язык"),
+                                        
+        SetImageTitleStruct(image: "them_icon", 
+                            title: "Темная тема"),
+                                       
+        SetImageTitleStruct(image: "delete_icon", 
+                            title: "Очистить данные")]
     
     deinit {
         print("Экран Settings уничтожился")
@@ -33,13 +39,14 @@ class SettingsView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationItem()
 
         if UserDefaults.standard.bool(forKey: "theme") == true {
             view.overrideUserInterfaceStyle = .dark
         } else {
+            UserDefaults.standard.bool(forKey: "theme")
             view.overrideUserInterfaceStyle = .light
         }
+        setupNavigationItem()
     }
     
     private func setupUI() {
@@ -65,6 +72,18 @@ class SettingsView: UIViewController {
     private func setupNavigationItem() {
         navigationItem.title = "Settings"
         
+        let customLeftButton = UIButton(type: .system)
+        customLeftButton.tintColor = .black
+        customLeftButton.setTitle("Home", for: .normal)
+        customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            customLeftButton.tintColor = .white
+        } else {
+            customLeftButton.tintColor = .black
+        }
+        let leftBarButton = UIBarButtonItem(customView: customLeftButton)
+        navigationItem.leftBarButtonItem = leftBarButton
+        
         let customButton = UIButton(type: .system)
         let image = UIImage(named: "settings_icon")
         let desiredSize = CGSize(width: 25, height: 25)
@@ -80,6 +99,7 @@ class SettingsView: UIViewController {
         }
         let rightBarButton = UIBarButtonItem(customView: customButton)
         navigationItem.rightBarButtonItem = rightBarButton
+
 //        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsButtonTapped))
 //        if UserDefaults.standard.bool(forKey: "theme") == true {
 //            rightBarButton.tintColor = .white
@@ -89,8 +109,12 @@ class SettingsView: UIViewController {
 //        navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    @objc func settingsButtonTapped(_ sender: UIButton) {
+    @objc func settingsButtonTapped() {
         
+    }
+    
+    @objc func backButtonTap() {
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 

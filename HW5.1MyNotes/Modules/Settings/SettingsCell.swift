@@ -18,7 +18,12 @@ class SettingsCell: UITableViewCell {
 
     static let reiseID = "settings_cell"
     
-    private lazy var photoView = UIImageView()
+    private lazy var photoView: UIImageView = {
+        let view = UIImageView()
+        view.tintColor = UIColor(named: "CustomTextColor")
+        //view.tintColorDidChange()
+        return view
+    }()
     
     private lazy var titleLabel = MakerView.shared.makerLabel(numberOfLines: 1, font: .systemFont(ofSize: 17))
     
@@ -28,7 +33,7 @@ class SettingsCell: UITableViewCell {
         let desiredSize = CGSize(width: 8, height: 13.8)
         let scaledImage = image?.resized(to: desiredSize)
         view.setTitle("Русский", for: .normal)
-        view.tintColor = .black
+        view.tintColor = UIColor(named: "CustomTextColor")
         view.setTitleColor(.label, for: .normal)
         view.setImage(scaledImage, for: .normal)
         view.semanticContentAttribute = .forceRightToLeft

@@ -9,7 +9,9 @@ import UIKit
 
 class AddNotesView: UIViewController {
     
-    //var notes: NoteCell?
+    private let coreDataService = CoreDataService.shared
+    
+    var note: Note?
     
     private lazy var titleTextField: UITextField = {
         let view = UITextField()
@@ -19,6 +21,7 @@ class AddNotesView: UIViewController {
         view.leftView = viewLeft
         view.layer.cornerRadius = 18
         view.layer.borderWidth = 0.5
+        view.addTarget(self, action: #selector(textFieldEdidtingChanged), for: .editingChanged)
         return view
     }()
     
@@ -39,12 +42,20 @@ class AddNotesView: UIViewController {
         return  view
     }()
     
+    private lazy var notesDateLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .black
+        return view
+    }()
+    
     private lazy var saveButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle("Сохранить", for: .normal)
-        view.backgroundColor = UIColor(named: "CustomRed")
+        view.backgroundColor = .lightGray
         view.layer.cornerRadius = 23
         view.tintColor = .white
+        view.isEnabled = false
+        view.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return view
     }()
     
@@ -57,6 +68,8 @@ class AddNotesView: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupConstraints()
+        guard let note = note else { return }
+        titleTextField.text = note.title
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,8 +83,60 @@ class AddNotesView: UIViewController {
         }
     }
     
+    @objc func backButtonTap() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func copyButtonTapped() {
+        guard let textToCopy = notesTextView.text else { return }
+        
+        UIPasteboard.general.string = textToCopy
+    }
+    
+    
+    @objc func settingsButtonTapped() {
+        
+    }
+    
+    @objc func textFieldEdidtingChanged() {
+        if let text = titleTextField.text {
+            if text.isEmpty {
+                saveButton.backgroundColor = .lightGray
+                saveButton.isEnabled = false
+            } else {
+                saveButton.isEnabled = true
+                saveButton.backgroundColor = UIColor(named: "CustomRed")
+            }
+        }
+    }
+    
+    @objc func saveButtonTapped() {
+        
+        let id = UUID().uuidString
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateString = dateFormatter.string(from: date)
+        
+        coreDataService.addNote(id: id, title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
+        //navigationController?.popToRootViewController(animated: true)
+    }
+    
     private func setupNavBarItem() {
         navigationItem.title = "Note"
+        
+        let customLeftButton = UIButton(type: .system)
+        customLeftButton.tintColor = .black
+        customLeftButton.setTitle("Home", for: .normal)
+        customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            customLeftButton.tintColor = .white
+        } else {
+            customLeftButton.tintColor = .black
+        }
+        let leftBarButton = UIBarButtonItem(customView: customLeftButton)
+        navigationItem.leftBarButtonItem = leftBarButton
         
         let customButton = UIButton(type: .system)
         let image = UIImage(named: "settings_icon")
@@ -88,10 +153,6 @@ class AddNotesView: UIViewController {
         }
         let rightBarButton = UIBarButtonItem(customView: customButton)
         navigationItem.rightBarButtonItem = rightBarButton
-    }
-    
-    @objc func settingsButtonTapped() {
-        
     }
     
     private func setupConstraints() {
@@ -117,14 +178,15 @@ class AddNotesView: UIViewController {
         }
         view.addSubview(copyButton)
         copyButton.snp.makeConstraints { make in
-            make.bottom.equalTo(saveButton.snp.top).offset(-117)
-            make.trailing.equalToSuperview().offset(-35)
+            make.bottom.equalTo(notesTextView.snp.bottom).offset(-12)
+            make.trailing.equalTo(notesTextView.snp.trailing).offset(-15)
             make.height.width.equalTo(32)
         }
-    }
-    @objc func copyButtonTapped() {
-        guard let textToCopy = notesTextView.text else { return }
-        
-        UIPasteboard.general.string = textToCopy
+        view.addSubview(notesDateLabel)
+        notesDateLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(notesTextView.snp.bottom).offset(-12)
+            make.left.equalTo(notesTextView.snp.left).offset(15)
+            make.height.equalTo(17)
+        }
     }
 }
