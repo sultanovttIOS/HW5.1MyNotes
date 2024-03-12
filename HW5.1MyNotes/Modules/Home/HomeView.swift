@@ -172,6 +172,8 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
         newNoteView.note = filteredNotes[indexPath.row]
         navigationController?.pushViewController(newNoteView, animated: true)
     }
+    
+    
 }
 
 extension HomeView: UICollectionViewDataSource {
@@ -182,7 +184,6 @@ extension HomeView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCell.reuseId, for: indexPath) as! NoteCell
         cell.fill(title: filteredNotes[indexPath.row].title ?? "" )
-        cell.delegate = self
         cell.index = indexPath.row
         return cell
     }
@@ -193,14 +194,6 @@ extension HomeView: HomeViewProtocol {
     func successNotes(notes: [Note]) {
         self.notes = notes
         self.filteredNotes = notes
-        notesCollectionView.reloadData()
-    }
-}
-
-extension HomeView: NoteCellDelegate {
-    func didRemoveButton(index: Int) {
-        print(index)
-        notes.remove(at: index)
         notesCollectionView.reloadData()
     }
 }
