@@ -2,12 +2,9 @@
 //  CoreDataService.swift
 //  HW5.1MyNotes
 //
-//  Created by Alisher Sultanov on 12/3/24.
+//  Created by Alisher Sultanov on 14/3/24.
 //
 
-<<<<<<< HEAD
-import Foundation
-=======
 import UIKit
 import CoreData
 
@@ -49,4 +46,3 @@ class CoreDataService {
         return []
     }
 }
->>>>>>> 91541f1 (added adding a new note)
