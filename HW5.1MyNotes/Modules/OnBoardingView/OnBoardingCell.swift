@@ -8,6 +8,12 @@
 import UIKit
 import SnapKit
 
+struct OnBoardingStruct {
+    let image: String
+    let title: String
+    let description: String
+}
+
 class OnBoardingCell: UICollectionViewCell {
     
     static let reiseId = "onBoarding_cell"
