@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddNotesView: UIViewController {
+class NoteView: UIViewController {
     
     private let coreDataService = CoreDataService.shared
     
@@ -120,7 +120,7 @@ class AddNotesView: UIViewController {
         let dateString = dateFormatter.string(from: date)
         
         coreDataService.addNote(id: id, title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
-        //navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupNavBarItem() {
