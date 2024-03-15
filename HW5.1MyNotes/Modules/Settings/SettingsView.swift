@@ -13,19 +13,23 @@ protocol SettingsViewProtocol {
 
 class SettingsView: UIViewController {
     
+    private let coreDataService = CoreDataService.shared
+    
     weak var controller: SettingsControllerProtocol?
     
-    private lazy var settingsTableView = UITableView()
+    private lazy var settingsTableView: UITableView = {
+        let view = UITableView()
+        view.delegate = self
+        view.dataSource = self
+        view.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reiseID)
+        view.isScrollEnabled = false
+        return view
+    }()
     
-    private lazy var images: [SetImageTitleStruct] = [
-        SetImageTitleStruct(image: "language_icon",
-                            title: "Язык"),
-                                        
-        SetImageTitleStruct(image: "them_icon", 
-                            title: "Темная тема"),
-                                       
-        SetImageTitleStruct(image: "delete_icon", 
-                            title: "Очистить данные")]
+    private lazy var setData: [SettingsStruct] = [
+        SettingsStruct(image: "language_icon", title: "Язык", type: .withButton),
+        SettingsStruct(image: "them_icon", title: "Темная тема", type: .withSwitch),
+        SettingsStruct(image: "delete_icon", title: "Очистить данные", type: .none)]
     
     deinit {
         print("Экран Settings уничтожился")
@@ -52,9 +56,6 @@ class SettingsView: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupConstraints()
-        settingsTableView.dataSource = self
-        settingsTableView.delegate = self
-        settingsTableView.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reiseID)
         controller = SettingsController(view: self)
     }
     
@@ -84,21 +85,21 @@ class SettingsView: UIViewController {
         let leftBarButton = UIBarButtonItem(customView: customLeftButton)
         navigationItem.leftBarButtonItem = leftBarButton
         
-        let customButton = UIButton(type: .system)
-        let image = UIImage(named: "settings_icon")
-        let desiredSize = CGSize(width: 25, height: 25)
-        let scaledImage = image?.resized(to: desiredSize)
-        customButton.setImage(scaledImage, for: .normal)
-        customButton.tintColor = .black
-        customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
-        
-        if UserDefaults.standard.bool(forKey: "theme") == true {
-            customButton.tintColor = .white
-        } else {
-            customButton.tintColor = .black
-        }
-        let rightBarButton = UIBarButtonItem(customView: customButton)
-        navigationItem.rightBarButtonItem = rightBarButton
+//        let customButton = UIButton(type: .system)
+//        let image = UIImage(named: "settings_icon")
+//        let desiredSize = CGSize(width: 25, height: 25)
+//        let scaledImage = image?.resized(to: desiredSize)
+//        customButton.setImage(scaledImage, for: .normal)
+//        customButton.tintColor = .black
+//        customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
+//        
+//        if UserDefaults.standard.bool(forKey: "theme") == true {
+//            customButton.tintColor = .white
+//        } else {
+//            customButton.tintColor = .black
+//        }
+//        let rightBarButton = UIBarButtonItem(customView: customButton)
+//        navigationItem.rightBarButtonItem = rightBarButton
 
 //        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsButtonTapped))
 //        if UserDefaults.standard.bool(forKey: "theme") == true {
@@ -109,40 +110,34 @@ class SettingsView: UIViewController {
 //        navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    @objc func settingsButtonTapped() {
-        
-    }
-    
     @objc func backButtonTap() {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 
-extension SettingsView: UITableViewDataSource, UITableViewDelegate {
+extension SettingsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        images.count
+        setData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reiseID,
                                                  for: indexPath) as! SettingsCell
         cell.delegate = self
-        if indexPath.row == 0 {
-            cell.contentView.addSubview(cell.rightButton)
-        } else {
-            cell.rightButton.removeFromSuperview()
-        }
-        if indexPath.row == 1 {
-            cell.contentView.addSubview(cell.switchButton)
-        } else {
-            cell.switchButton.removeFromSuperview()
-        }
-        cell.fill(images[indexPath.row].image, title: images[indexPath.row].title)
+        cell.fill(with: setData[indexPath.row])
         return cell
     }
-    
+}
+
+extension SettingsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            coreDataService.deleteNotes()
+        }
     }
 }
 

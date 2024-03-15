@@ -124,7 +124,8 @@ class HomeView: UIViewController {
     }
     
     @objc func addNotesButtonTapped() {
-        navigationController?.pushViewController(AddNotesView(), animated: true)
+        let noteView = NoteView()
+        navigationController?.pushViewController(noteView, animated: true)
     }
     
     private func setupConstraints() {
@@ -168,7 +169,7 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let newNoteView = AddNotesView()
+        let newNoteView = NoteView()
         newNoteView.note = filteredNotes[indexPath.row]
         navigationController?.pushViewController(newNoteView, animated: true)
     }

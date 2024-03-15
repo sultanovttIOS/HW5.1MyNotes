@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let error {
             print(error.localizedDescription)
         } else {
-                
             }
         })
         return container
@@ -47,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
      func saveContext() {
          let context = persistentContainer.viewContext
-         
          if context.hasChanges {
              do {
                  try context.save()

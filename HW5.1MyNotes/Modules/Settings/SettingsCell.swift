@@ -8,6 +8,19 @@
 import UIKit
 import SnapKit
 
+struct SettingsStruct {
+    let image: String
+    let title: String
+    let type: SettingsCellType
+    //let description: String
+}
+
+enum SettingsCellType {
+    case withSwitch
+    case withButton
+    case none
+}
+
 protocol ThemeSwitchDelegate: AnyObject {
     func didChangeTheme(isOn: Bool)
 }
@@ -69,9 +82,19 @@ class SettingsCell: UITableViewCell {
            titleLabel.text = nil
        }
     
-    func fill(_ imageName: String, title: String) {
-        photoView.image = UIImage(named: imageName)
-        titleLabel.text = title
+    func fill(with: SettingsStruct) {
+        photoView.image = UIImage(named: with.image)
+        titleLabel.text = with.title
+        switch with.type {
+        case .withSwitch:
+            rightButton.isHidden = true
+        case .withButton:
+            switchButton.isHidden = true
+            //rightButton.setTitle(description, for: .normal)
+        case .none:
+            rightButton.isHidden = true
+            switchButton.isHidden = true
+        }
     }
     
     private func setupConstraints() {

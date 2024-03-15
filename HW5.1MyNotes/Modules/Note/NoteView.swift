@@ -83,19 +83,38 @@ class NoteView: UIViewController {
         }
     }
     
+    private func setupNavBarItem() {
+        navigationItem.title = "Note"
+        let customLeftButton = UIButton(type: .system)
+        customLeftButton.tintColor = .black
+        customLeftButton.setTitle("Home", for: .normal)
+        customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            customLeftButton.tintColor = .white
+        } else {
+            customLeftButton.tintColor = .black
+        }
+        let leftBarButton = UIBarButtonItem(customView: customLeftButton)
+        navigationItem.leftBarButtonItem = leftBarButton
+        
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(trashButtonTapped))
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            rightBarButton.tintColor = .white
+        } else {
+            rightBarButton.tintColor = .black
+        }
+        navigationItem.rightBarButtonItem = rightBarButton
+     }
+    
+    // objc functions
     @objc func backButtonTap() {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func copyButtonTapped() {
         guard let textToCopy = notesTextView.text else { return }
         
         UIPasteboard.general.string = textToCopy
-    }
-    
-    
-    @objc func settingsButtonTapped() {
-        
     }
     
     @objc func textFieldEdidtingChanged() {
@@ -111,48 +130,25 @@ class NoteView: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        
-        let id = UUID().uuidString
-        
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
-        
-        coreDataService.addNote(id: id, title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
-        navigationController?.popViewController(animated: true)
+        if let note = note {
+            coreDataService.updateNote(id: note.id ?? "", title: titleTextField.text ?? "", description: description, date: dateString)
+        } else {
+            let id = UUID().uuidString
+            coreDataService.addNote(id: id, title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
+            //TODO: потом переделать
+            navigationController?.popViewController(animated: true)
+        }
     }
     
-    private func setupNavBarItem() {
-        navigationItem.title = "Note"
-        
-        let customLeftButton = UIButton(type: .system)
-        customLeftButton.tintColor = .black
-        customLeftButton.setTitle("Home", for: .normal)
-        customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
-        if UserDefaults.standard.bool(forKey: "theme") == true {
-            customLeftButton.tintColor = .white
-        } else {
-            customLeftButton.tintColor = .black
-        }
-        let leftBarButton = UIBarButtonItem(customView: customLeftButton)
-        navigationItem.leftBarButtonItem = leftBarButton
-        
-        let customButton = UIButton(type: .system)
-        let image = UIImage(named: "settings_icon")
-        let desiredSize = CGSize(width: 25, height: 25)
-        let scaledImage = image?.resized(to: desiredSize)
-        customButton.setImage(scaledImage, for: .normal)
-        customButton.tintColor = .black
-        customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
-        
-        if UserDefaults.standard.bool(forKey: "theme") == true {
-            customButton.tintColor = .white
-        } else {
-            customButton.tintColor = .black
-        }
-        let rightBarButton = UIBarButtonItem(customView: customButton)
-        navigationItem.rightBarButtonItem = rightBarButton
+    @objc func trashButtonTapped() {
+        guard let note = note else { return }
+        coreDataService.delete(id: note.id ?? "")
+        //TODO: потом переделать
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupConstraints() {
