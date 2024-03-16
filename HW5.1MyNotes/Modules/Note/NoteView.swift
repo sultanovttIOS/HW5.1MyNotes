@@ -136,6 +136,8 @@ class NoteView: UIViewController {
         let dateString = dateFormatter.string(from: date)
         if let note = note {
             coreDataService.updateNote(id: note.id ?? "", title: titleTextField.text ?? "", description: description, date: dateString)
+            //TODO: потом переделать
+            navigationController?.popViewController(animated: true)
         } else {
             let id = UUID().uuidString
             coreDataService.addNote(id: id, title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
