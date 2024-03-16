@@ -7,8 +7,10 @@
 
 protocol HomeControllerProtocol {
     func onGetNotes()
-    
-    func onSuccessNotes(notes: [Note])}
+    func onSuccessNotes(notes: [Note])
+    func onNoteSearching(text: String)
+    func onSearchResult(notes: [Note])
+}
 
 class HomeController: HomeControllerProtocol {
     
@@ -29,5 +31,11 @@ class HomeController: HomeControllerProtocol {
         view?.successNotes(notes: notes)
     }
     
+    func onNoteSearching(text: String) {
+        model?.searchNotes(text: text)
+    }
+    func onSearchResult(notes: [Note]) {
+        view?.successNotes(notes: notes)
+    }
     
 }

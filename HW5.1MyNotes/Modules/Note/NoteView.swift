@@ -7,11 +7,18 @@
 
 import UIKit
 
+protocol NoteViewProtocol {
+    func succesNote()
+    func failureNote()
+}
+
 class NoteView: UIViewController {
     
     private let coreDataService = CoreDataService.shared
     
     var note: Note?
+    
+    var controller: NoteControllerProtocol?
     
     private lazy var titleTextField: UITextField = {
         let view = UITextField()
@@ -68,6 +75,7 @@ class NoteView: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupConstraints()
+        controller = NoteController(view: self)
         guard let note = note else { return }
         titleTextField.text = note.title
     }
@@ -187,4 +195,16 @@ class NoteView: UIViewController {
             make.height.equalTo(17)
         }
     }
+}
+
+extension NoteView: NoteViewProtocol {
+    func succesNote() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func failureNote() {
+        ()
+    }
+    
+    
 }

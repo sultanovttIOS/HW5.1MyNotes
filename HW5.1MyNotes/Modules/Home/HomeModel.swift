@@ -6,6 +6,8 @@
 //
 protocol HomeModelProtocol {
     func getNotes()
+    
+    func searchNotes(text: String)
 }
 class HomeModel: HomeModelProtocol {
     
@@ -18,9 +20,22 @@ class HomeModel: HomeModelProtocol {
     }
 
     private var notes: [Note] = []
-    
+    private var filteredNotes: [Note] = []
+
     func getNotes() {
         notes = coreDataService.fetchNotes()
         controller?.onSuccessNotes(notes: notes)
+    }
+    func searchNotes(text: String) {
+        filteredNotes = []
+        if text.isEmpty {
+            filteredNotes = notes
+            controller?.onSuccessNotes(notes: notes)
+        } else {
+            filteredNotes = notes.filter({ note in 
+                note.title!.lowercased().contains(text.lowercased())
+            })
+            controller?.onSuccessNotes(notes: filteredNotes)
+        }
     }
 }

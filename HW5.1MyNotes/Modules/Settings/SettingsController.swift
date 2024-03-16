@@ -14,7 +14,7 @@ class SettingsController {
     private let view: SettingsViewProtocol?
     private var model: SettingsModelProtocol?
     
-    init(view: SettingsViewProtocol?) {
+    init(view: SettingsViewProtocol) {
         self.view = view
         self.model = SettingsModel(controller: self)
     }

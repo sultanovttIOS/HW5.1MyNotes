@@ -13,7 +13,7 @@ class SettingsModel {
     
     weak var controller: SettingsControllerProtocol?
     
-    init(controller: SettingsControllerProtocol?) {
+    init(controller: SettingsControllerProtocol) {
         self.controller = controller
     }
 }
