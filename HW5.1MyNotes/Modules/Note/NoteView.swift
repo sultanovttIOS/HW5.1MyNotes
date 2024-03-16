@@ -36,8 +36,11 @@ class NoteView: UIViewController {
         let view = UITextView()
         view.backgroundColor = UIColor(named: "CustomTextViewColor")
         view.textColor = UIColor(named: "CustomTextColor")
-        view.isScrollEnabled = true
+        //view.isScrollEnabled = true
         view.layer.cornerRadius = 14
+        view.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        view.autocorrectionType = .no
+        view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return view
     }()
     
@@ -78,6 +81,7 @@ class NoteView: UIViewController {
         controller = NoteController(view: self)
         guard let note = note else { return }
         titleTextField.text = note.title
+        notesDateLabel.text = note.desc
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +118,6 @@ class NoteView: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
      }
     
-    // objc functions
     @objc func backButtonTap() {
         navigationController?.popViewController(animated: true)
     }
@@ -126,8 +129,8 @@ class NoteView: UIViewController {
     }
     
     @objc func textFieldEdidtingChanged() {
-        if let text = titleTextField.text {
-            if text.isEmpty {
+        if let titleText = titleTextField.text {
+            if titleText.isEmpty {
                 saveButton.backgroundColor = .lightGray
                 saveButton.isEnabled = false
             } else {
@@ -143,7 +146,7 @@ class NoteView: UIViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
         if let note = note {
-            coreDataService.updateNote(id: note.id ?? "", title: titleTextField.text ?? "", description: description, date: dateString)
+            coreDataService.updateNote(id: note.id ?? "", title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
             //TODO: потом переделать
             navigationController?.popViewController(animated: true)
         } else {
@@ -180,6 +183,7 @@ class NoteView: UIViewController {
         notesTextView.snp.makeConstraints { make in
             make.top.equalTo(titleTextField.snp.bottom).offset(26)
             make.horizontalEdges.equalToSuperview().inset(20)
+            //make.height.equalTo(473)
             make.bottom.equalTo(saveButton.snp.top).offset(-105)
         }
         view.addSubview(copyButton)

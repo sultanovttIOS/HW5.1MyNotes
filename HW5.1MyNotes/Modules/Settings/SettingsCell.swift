@@ -12,7 +12,6 @@ struct SettingsStruct {
     let image: String
     let title: String
     let type: SettingsCellType
-    //let description: String
 }
 
 enum SettingsCellType {
@@ -34,7 +33,6 @@ class SettingsCell: UITableViewCell {
     private lazy var photoView: UIImageView = {
         let view = UIImageView()
         view.tintColor = UIColor(named: "CustomTextColor")
-        //view.tintColorDidChange()
         return view
     }()
     
@@ -75,13 +73,6 @@ class SettingsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-           super.prepareForReuse()
-        contentView.backgroundColor = .secondarySystemBackground
-           photoView.image = nil
-           titleLabel.text = nil
-       }
-    
     func fill(with: SettingsStruct) {
         photoView.image = UIImage(named: with.image)
         titleLabel.text = with.title
@@ -90,7 +81,6 @@ class SettingsCell: UITableViewCell {
             rightButton.isHidden = true
         case .withButton:
             switchButton.isHidden = true
-            //rightButton.setTitle(description, for: .normal)
         case .none:
             rightButton.isHidden = true
             switchButton.isHidden = true

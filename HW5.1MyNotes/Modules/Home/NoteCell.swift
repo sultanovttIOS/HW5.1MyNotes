@@ -7,18 +7,10 @@
 
 import UIKit
 
-protocol NoteCellDelegate: AnyObject {
-    func didRemoveButton(index: Int)
-}
-
 class NoteCell: UICollectionViewCell {
     
     static var reuseId = "note_cell"
-        
-    weak var delegate: NoteCellDelegate?
-    
-    var index: Int?
-    
+                
     let colors: [UIColor] = [UIColor(named: "CustomNotesViolet")!,
                              UIColor(named: "CustomNSecondColor")!,
                              UIColor(named: "CustomNThirdColor")!,
@@ -49,13 +41,7 @@ class NoteCell: UICollectionViewCell {
         backgroundColor = colors.randomElement()
         setupConstraints()
     }
-    
-    @objc func deleteButtonTapped() {
-        guard let index = index else { return }
-        
-        delegate?.didRemoveButton(index: index)
-    }
-    
+
     private func setupConstraints() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in

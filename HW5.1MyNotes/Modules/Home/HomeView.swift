@@ -19,7 +19,6 @@ class HomeView: UIViewController {
         let view = UISearchBar()
         view.layer.cornerRadius = 10
         view.placeholder = "Search"
-        //view.delegate = self
         view.searchTextField.addTarget(self, action: #selector(notesSearchBarEditingChanged), for: .editingChanged)
         return view
     }()
@@ -164,8 +163,3 @@ extension HomeView: HomeViewProtocol {
         notesCollectionView.reloadData()
     }
 }
-//extension HomeView: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        return true
-//    }
-//}

@@ -13,12 +13,11 @@ protocol HomeControllerProtocol {
 }
 
 class HomeController: HomeControllerProtocol {
-    
     private let view: HomeViewProtocol? 
     
     private var model: HomeModelProtocol?
     
-    init(view: HomeViewProtocol?) {
+    init(view: HomeViewProtocol) {
         self.view = view
         self.model = HomeModel(controller: self)
     }
@@ -34,8 +33,8 @@ class HomeController: HomeControllerProtocol {
     func onNoteSearching(text: String) {
         model?.searchNotes(text: text)
     }
+    
     func onSearchResult(notes: [Note]) {
         view?.successNotes(notes: notes)
     }
-    
 }
