@@ -6,12 +6,14 @@
 //
 
 protocol SettingsControllerProtocol: AnyObject {
-    
+    func onDeleteNotes()
+    func onSuccessDelete()
+    func onFailureDelete()
 }
 
 class SettingsController {
     
-    private let view: SettingsViewProtocol?
+    var view: SettingsViewProtocol?
     private var model: SettingsModelProtocol?
     
     init(view: SettingsViewProtocol) {
@@ -19,8 +21,15 @@ class SettingsController {
         self.model = SettingsModel(controller: self)
     }
 }
-
 extension SettingsController: SettingsControllerProtocol {
-    
+    func onSuccessDelete() {
+        view?.successDelete()
+    }
+    func onFailureDelete() {
+        view?.failureDelete()
+    }
+    func onDeleteNotes() {
+        model?.deleteNotes()
+    }
 }
 

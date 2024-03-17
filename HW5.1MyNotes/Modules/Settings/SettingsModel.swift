@@ -6,10 +6,11 @@
 //
 
 protocol SettingsModelProtocol {
-    
+    func deleteNotes()
 }
 
 class SettingsModel {
+    private let coreDataService = CoreDataService.shared
     
     weak var controller: SettingsControllerProtocol?
     
@@ -19,5 +20,13 @@ class SettingsModel {
 }
 
 extension SettingsModel: SettingsModelProtocol {
-    
+    func deleteNotes() {
+        coreDataService.deleteNotes() { response in
+            if response == .success {
+                self.controller?.onSuccessDelete()
+            } else {
+                self.controller?.onFailureDelete()
+            }
+        }
+    }
 }

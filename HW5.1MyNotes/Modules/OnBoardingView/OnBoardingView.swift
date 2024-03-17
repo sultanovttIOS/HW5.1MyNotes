@@ -61,6 +61,10 @@ class OnBoardingView: UIViewController {
         return view
     }()
     
+    deinit {
+        print("Экран OnBoardingView уничтожился с памяти!")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()

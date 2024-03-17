@@ -8,9 +8,12 @@
 import UIKit
 
 protocol NoteControllerProtocol {
-    func onAddNote(note: Note?, id: String, title: String, description: String, date: String)
+    func onAddNote(note: Note?, title: String, description: String)
     func onSuccessAddNote()
     func onFailureAddNote()
+    func onDeleteNote(id: String)
+    func onSuccessDelete()
+    func onFailureDelete()
 }
 
 class NoteController: NoteControllerProtocol {
@@ -22,13 +25,22 @@ class NoteController: NoteControllerProtocol {
         self.model = NoteModel(controller: self)
     }
     
-    func onAddNote(note: Note?, id: String, title: String, description: String, date: String) {
-        model?.addNote(note: note, id: id, title: title, description: description, date: date)
+    func onAddNote(note: Note?, title: String, description: String) {
+        model?.addNote(note: note, title: title, description: description)
     }
     func onSuccessAddNote() {
-        view?.succesNote()
+        view?.successAddNote()
     }
     func onFailureAddNote() {
-        ()
+        view?.failureAddNote()
+    }
+    func onDeleteNote(id: String) {
+        model?.deleteNote(id: id)
+    }
+    func onSuccessDelete() {
+        view?.successDelete()
+    }
+    func onFailureDelete() {
+        view?.failureDelete()
     }
 }

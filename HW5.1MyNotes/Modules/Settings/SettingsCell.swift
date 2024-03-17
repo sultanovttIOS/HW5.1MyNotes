@@ -20,13 +20,12 @@ enum SettingsCellType {
     case none
 }
 
-protocol ThemeSwitchDelegate: AnyObject {
+protocol SettingsCellDelegate: AnyObject {
     func didChangeTheme(isOn: Bool)
 }
 
 class SettingsCell: UITableViewCell {
-            
-    weak var delegate: ThemeSwitchDelegate?
+    weak var delegate: SettingsCellDelegate?
 
     static let reiseID = "settings_cell"
     

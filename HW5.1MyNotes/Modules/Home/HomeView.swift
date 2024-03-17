@@ -43,7 +43,7 @@ class HomeView: UIViewController {
                                                               cornerRadius: 42 / 2,
                                                               tintColor: .white)
     deinit {
-        print("Экран HomeView уничтожился с памяти")
+        print("Экран HomeView уничтожился с памяти!")
     }
     
     override func viewDidLoad() {

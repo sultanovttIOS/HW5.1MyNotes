@@ -8,14 +8,12 @@
 import UIKit
 
 protocol SettingsViewProtocol {
-    
+    func successDelete()
+    func failureDelete()
 }
 
 class SettingsView: UIViewController {
-    
-    private let coreDataService = CoreDataService.shared
-    
-    weak var controller: SettingsControllerProtocol?
+    private var controller: SettingsControllerProtocol?
     
     private lazy var settingsTableView: UITableView = {
         let view = UITableView()
@@ -32,7 +30,7 @@ class SettingsView: UIViewController {
         SettingsStruct(image: "delete_icon", title: "Очистить данные", type: .none)]
     
     deinit {
-        print("Экран Settings уничтожился")
+        print("Экран Settings уничтожился с памяти!")
     }
     
     override func viewDidLoad() {
@@ -84,30 +82,6 @@ class SettingsView: UIViewController {
         }
         let leftBarButton = UIBarButtonItem(customView: customLeftButton)
         navigationItem.leftBarButtonItem = leftBarButton
-        
-//        let customButton = UIButton(type: .system)
-//        let image = UIImage(named: "settings_icon")
-//        let desiredSize = CGSize(width: 25, height: 25)
-//        let scaledImage = image?.resized(to: desiredSize)
-//        customButton.setImage(scaledImage, for: .normal)
-//        customButton.tintColor = .black
-//        customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
-//        
-//        if UserDefaults.standard.bool(forKey: "theme") == true {
-//            customButton.tintColor = .white
-//        } else {
-//            customButton.tintColor = .black
-//        }
-//        let rightBarButton = UIBarButtonItem(customView: customButton)
-//        navigationItem.rightBarButtonItem = rightBarButton
-
-//        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(settingsButtonTapped))
-//        if UserDefaults.standard.bool(forKey: "theme") == true {
-//            rightBarButton.tintColor = .white
-//        } else {
-//            rightBarButton.tintColor = .black
-//        }
-//        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     @objc func backButtonTap() {
@@ -119,7 +93,6 @@ extension SettingsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         setData.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reiseID,
                                                  for: indexPath) as! SettingsCell
@@ -128,23 +101,35 @@ extension SettingsView: UITableViewDataSource {
         return cell
     }
 }
-
 extension SettingsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            coreDataService.deleteNotes()
+            let alert = UIAlertController(title: "Удаление", message: "Удалить все заметки?", preferredStyle: .alert)
+            let acceptAlert = UIAlertAction(title: "Удалить", style: .destructive) { action in
+                self.controller?.onDeleteNotes()
+            }
+            let actionDecline = UIAlertAction(title: "Отменить", style: .cancel)
+            alert.addAction(actionDecline)
+            alert.addAction(acceptAlert)
+            present(alert, animated: true)
         }
     }
 }
-
 extension SettingsView: SettingsViewProtocol {
-    
+    func successDelete() {
+        navigationController?.popViewController(animated: true)
+    }
+    func failureDelete() {
+        let alert = UIAlertController(title: "Ошибка", message: "Не удалось удалить заметки!", preferredStyle: .alert)
+        let acceptAction = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(acceptAction)
+        present(alert, animated: true)
+    }
 }
-
-extension SettingsView: ThemeSwitchDelegate {
+extension SettingsView: SettingsCellDelegate {
     func didChangeTheme(isOn: Bool) {
         UserDefaults.standard.set(isOn, forKey: "theme")
         if isOn {

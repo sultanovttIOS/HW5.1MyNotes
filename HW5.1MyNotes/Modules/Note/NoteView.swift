@@ -8,12 +8,13 @@
 import UIKit
 
 protocol NoteViewProtocol {
-    func succesNote()
-    func failureNote()
+    func successAddNote()
+    func failureAddNote()
+    func successDelete()
+    func failureDelete()
 }
 
 class NoteView: UIViewController {
-    
     private let coreDataService = CoreDataService.shared
     
     var note: Note?
@@ -36,7 +37,6 @@ class NoteView: UIViewController {
         let view = UITextView()
         view.backgroundColor = UIColor(named: "CustomTextViewColor")
         view.textColor = UIColor(named: "CustomTextColor")
-        //view.isScrollEnabled = true
         view.layer.cornerRadius = 14
         view.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         view.autocorrectionType = .no
@@ -54,13 +54,14 @@ class NoteView: UIViewController {
     
     private lazy var notesDateLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .black
+        view.textColor = .secondaryLabel
+        view.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         return view
     }()
     
     private lazy var saveButton: UIButton = {
         let view = UIButton(type: .system)
-        view.setTitle("Сохранить", for: .normal)
+        view.setTitle("Save", for: .normal)
         view.backgroundColor = .lightGray
         view.layer.cornerRadius = 23
         view.tintColor = .white
@@ -68,6 +69,10 @@ class NoteView: UIViewController {
         view.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         return view
     }()
+    
+    deinit {
+        print("Экран NoteView исчез и удалился с памяти!")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +86,8 @@ class NoteView: UIViewController {
         controller = NoteController(view: self)
         guard let note = note else { return }
         titleTextField.text = note.title
-        notesDateLabel.text = note.desc
+        notesTextView.text = note.desc
+        notesDateLabel.text = note.date
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,27 +147,19 @@ class NoteView: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let dateString = dateFormatter.string(from: date)
-        if let note = note {
-            coreDataService.updateNote(id: note.id ?? "", title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
-            //TODO: потом переделать
-            navigationController?.popViewController(animated: true)
-        } else {
-            let id = UUID().uuidString
-            coreDataService.addNote(id: id, title: titleTextField.text ?? "", description: notesTextView.text, date: dateString)
-            //TODO: потом переделать
-            navigationController?.popViewController(animated: true)
-        }
+        controller?.onAddNote(note: note, title: titleTextField.text ?? "", description: notesTextView.text)
     }
     
     @objc func trashButtonTapped() {
         guard let note = note else { return }
-        coreDataService.delete(id: note.id ?? "")
-        //TODO: потом переделать
-        navigationController?.popViewController(animated: true)
+        let alert = UIAlertController(title: "Удаление", message: "Удалить заметку?", preferredStyle: .alert)
+        let acceptAlert = UIAlertAction(title: "Да", style: .destructive) { action in
+            self.controller?.onDeleteNote(id: note.id ?? "")
+        }
+        let actionDecline = UIAlertAction(title: "Нет", style: .cancel)
+        alert.addAction(actionDecline)
+        alert.addAction(acceptAlert)
+        present(alert, animated: true)
     }
     
     private func setupConstraints() {
@@ -183,7 +181,6 @@ class NoteView: UIViewController {
         notesTextView.snp.makeConstraints { make in
             make.top.equalTo(titleTextField.snp.bottom).offset(26)
             make.horizontalEdges.equalToSuperview().inset(20)
-            //make.height.equalTo(473)
             make.bottom.equalTo(saveButton.snp.top).offset(-105)
         }
         view.addSubview(copyButton)
@@ -202,13 +199,23 @@ class NoteView: UIViewController {
 }
 
 extension NoteView: NoteViewProtocol {
-    func succesNote() {
+    func successAddNote() {
         navigationController?.popViewController(animated: true)
     }
     
-    func failureNote() {
-        ()
+    func failureAddNote() {
+        let alert = UIAlertController(title: "Ошибка", message: "Не удалось сохранить заметку!", preferredStyle: .alert)
+        let acceptAlert = UIAlertAction(title: "Назад", style: .cancel)
+        alert.addAction(acceptAlert)
+        present(alert, animated: true)
     }
-    
-    
+    func successDelete() {
+        navigationController?.popViewController(animated: true)
+    }
+    func failureDelete() {
+        let alert = UIAlertController(title: "Ошибка", message: "Не удалось удалить заметку!", preferredStyle: .alert)
+        let acceptAlert = UIAlertAction(title: "Вернуться", style: .destructive)
+        alert.addAction(acceptAlert)
+        present(alert, animated: true)
+    }
 }
