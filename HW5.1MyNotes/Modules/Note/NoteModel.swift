@@ -10,6 +10,7 @@ import UIKit
 protocol NoteModelProtocol {
     func addNote(note: Note?, title: String, description: String)
     func deleteNote(id: String)
+    func updateNote(note: Note?, id: String, title: String, description: String, date: String)
 }
 
 class NoteModel: NoteModelProtocol {
@@ -27,24 +28,30 @@ class NoteModel: NoteModelProtocol {
         dateFormatter.dateFormat = "yyyy-MM-dd - HH:mm:ss"
         let dateString = dateFormatter.string(from: currentDate)
         if let note = note {
-            coreDataService.updateNote(id: note.id ?? "", title: title, description: note.desc ?? "", date: dateString)
+            coreDataService.updateNote(id: note.id ?? "", title: title, description: description, date: dateString)
         } else {
             let id = UUID().uuidString
             coreDataService.addNote(id: id, title: title, description: description, date: dateString) { response in
                 if response == .success {
-                    controller?.onSuccessAddNote()
+                    self.controller?.onSuccessAddNote()
                 } else {
-                    controller?.onFailureAddNote()
+                    self.controller?.onFailureAddNote()
                 }
             }
         }
     }
+    func updateNote(note: Note?, id: String, title: String, description: String, date: String) {
+         if let note = note {
+             coreDataService.updateNote(id: note.id ?? "", title: title, description: description, date: date)
+         }
+         controller?.onSuccessUpdateNote(note: note, id: id, title: title, description: description, date: date)
+     }
     func deleteNote(id: String) {
         coreDataService.delete(id: id) { response in
             if response == .success {
-                controller?.onSuccessDelete()
+                self.controller?.onSuccessDelete()
             } else {
-                controller?.onFailureDelete()
+                self.controller?.onFailureDelete()
             }
         }
     }

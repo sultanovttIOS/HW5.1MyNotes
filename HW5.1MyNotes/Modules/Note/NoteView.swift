@@ -12,6 +12,7 @@ protocol NoteViewProtocol {
     func failureAddNote()
     func successDelete()
     func failureDelete()
+    func successUpdateNote()
 }
 
 class NoteView: UIViewController {
@@ -148,6 +149,7 @@ class NoteView: UIViewController {
     
     @objc func saveButtonTapped() {
         controller?.onAddNote(note: note, title: titleTextField.text ?? "", description: notesTextView.text)
+        successUpdateNote()
     }
     
     @objc func trashButtonTapped() {
@@ -217,5 +219,8 @@ extension NoteView: NoteViewProtocol {
         let acceptAlert = UIAlertAction(title: "Вернуться", style: .destructive)
         alert.addAction(acceptAlert)
         present(alert, animated: true)
+    }
+    func successUpdateNote() {
+        navigationController?.popViewController(animated: true)
     }
 }
