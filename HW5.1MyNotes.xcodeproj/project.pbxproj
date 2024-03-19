@@ -79,13 +79,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CE631A112B964A9300AF9523 /* OnBoardingView */ = {
+		CE631A112B964A9300AF9523 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
 				CE631A122B964ABD00AF9523 /* OnBoardingView.swift */,
 				CE631A142B964AE800AF9523 /* OnBoardingCell.swift */,
 			);
-			path = OnBoardingView;
+			path = OnBoarding;
 			sourceTree = "<group>";
 		};
 		CEA72BFB2B8A121A00D4566B = {
@@ -151,12 +151,11 @@
 		CEA72C252B8A33F800D4566B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				CEAC3DDB2BA96B8700394FAA /* Language */,
 				CEE81A1A2B9C85BF00EA8050 /* Note */,
-				CE631A112B964A9300AF9523 /* OnBoardingView */,
+				CE631A112B964A9300AF9523 /* OnBoarding */,
 				CEA72C2F2B8A436E00D4566B /* Settings */,
 				CEA72C262B8A340600D4566B /* Home */,
-				CEAC3DD72BA8B66500394FAA /* LanguageView.swift */,
-				CEAC3DD92BA8B8A500394FAA /* LanguageCell.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -181,6 +180,15 @@
 				CEA72C302B8A4E0200D4566B /* SettingsCell.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		CEAC3DDB2BA96B8700394FAA /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				CEAC3DD72BA8B66500394FAA /* LanguageView.swift */,
+				CEAC3DD92BA8B8A500394FAA /* LanguageCell.swift */,
+			);
+			path = Language;
 			sourceTree = "<group>";
 		};
 		CEE81A1A2B9C85BF00EA8050 /* Note */ = {
