@@ -11,6 +11,10 @@ protocol SettingsViewProtocol {
     func successDelete()
     func failureDelete()
 }
+protocol SettingsCellDelegate: AnyObject {
+    func didChangeTheme(isOn: Bool)
+    func didChangeLanguage()
+}
 
 class SettingsView: UIViewController {
     private var controller: SettingsControllerProtocol?
@@ -137,5 +141,8 @@ extension SettingsView: SettingsCellDelegate {
         }  else {
             view.overrideUserInterfaceStyle = .light
         }
+    }
+    func didChangeLanguage() {
+        present(LanguageView(), animated: true)
     }
 }

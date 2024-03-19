@@ -20,13 +20,9 @@ enum SettingsCellType {
     case none
 }
 
-protocol SettingsCellDelegate: AnyObject {
-    func didChangeTheme(isOn: Bool)
-}
-
 class SettingsCell: UITableViewCell {
     weak var delegate: SettingsCellDelegate?
-
+    
     static let reiseID = "settings_cell"
     
     private lazy var photoView: UIImageView = {
@@ -57,17 +53,12 @@ class SettingsCell: UITableViewCell {
         view.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         return view
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
         contentView.backgroundColor = .secondarySystemBackground
     }
-    
-    @objc func switchValueChanged(_ sender: UISwitch) {
-        delegate?.didChangeTheme(isOn: switchButton.isOn)
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -104,14 +95,20 @@ class SettingsCell: UITableViewCell {
             make.trailing.equalTo(contentView).offset(-25)
             make.centerY.equalTo(contentView)
             make.height.equalTo(20)
+            rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         }
         contentView.addSubview(switchButton)
-            switchButton.snp.makeConstraints { make in
+        switchButton.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.trailing.equalTo(contentView).offset(-25)
             make.width.equalTo(51)
             make.height.equalTo(31)
         }
     }
+    @objc func switchValueChanged(_ sender: UISwitch) {
+        delegate?.didChangeTheme(isOn: switchButton.isOn)
+    }
+    @objc func rightButtonTapped() {
+        delegate?.didChangeLanguage()
+    }
 }
-
