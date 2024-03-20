@@ -1,0 +1,28 @@
+
+/* 
+  Localizable.strings
+  HW5.1MyNotes
+
+  Created by Alisher Sultanov on 19/3/24.
+  
+*/
+"Settings" = "Настройки";
+"Home" = "Главный";
+"Choose language" = "Выбрать язык";
+"Choose theme" = " Выбрать тему";
+"English" = "Русский";
+"Clear data" = "Очистить данные";
+"Notes" = "Заметки";
+"Note" = "Заметка";
+"Save" = "Сохранить";
+"Search" = "Поиск";
+"Title" = "Название";
+"Yes" = "Да";
+"No" = "Нет";
+"Delete" = "Удалить";
+"Delete note" = "Удалить заметку";
+"Failed to delete notes" = "Не удалось удалить заметку";
+"Cancel" = "Отменить";
+"Delete all notes" = "Удалить все заметки";
+"OK" = "ОК";
+"Error" = "Ошибка";

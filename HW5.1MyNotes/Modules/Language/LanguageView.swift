@@ -7,15 +7,12 @@
 
 import UIKit
 
-enum Language {
-    case kyrgyz
-    case russian
-    case english
-}
-struct LanguageText {
-    let language: Language
+protocol LanguageViewProtocol: AnyObject {
+    func didChangeLanguage(languageType: LanguageType)
 }
 class LanguageView: UIViewController {
+    
+    weak var delegate: LanguageViewProtocol?
 
     private let setData: [FillLanguage] = [FillLanguage(image: "kyrgyzLanguage_icon", 
                                                         language: "Кыргызча"),
@@ -25,8 +22,9 @@ class LanguageView: UIViewController {
                                                         language: "English")]
     private lazy var languageLabel: UILabel = {
         let view = UILabel()
-        view.text = "Выберите язык"
+        view.text = "Choose language".localized()
         view.textColor = .label
+        view.textAlignment = .center
         view.font = UIFont.boldSystemFont(ofSize: 17)
         return view
     }()
@@ -53,16 +51,16 @@ class LanguageView: UIViewController {
     private func setupConstraints() {
         view.addSubview(languageLabel)
         languageLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(45)
+            make.top.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(4)
             make.height.equalTo(42)
             make.width.equalTo(153)
         }
         view.addSubview(languageTableView)
         languageTableView.snp.makeConstraints { make in
-            make.top.equalTo(languageLabel.snp.bottom).offset(26)
+            make.top.equalTo(languageLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(151)
+            make.height.equalTo(150)
             languageTableView.layer.cornerRadius = 10
         }
     }
@@ -82,5 +80,21 @@ extension LanguageView: UITableViewDataSource {
 extension LanguageView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            AppLanguageManager.shared.setAppLanguage(language: .kg)
+            delegate?.didChangeLanguage(languageType: .kg)
+        case 1:
+            AppLanguageManager.shared.setAppLanguage(language: .ru)
+            delegate?.didChangeLanguage(languageType: .ru)
+        case 2:
+            AppLanguageManager.shared.setAppLanguage(language: .en)
+            delegate?.didChangeLanguage(languageType: .en)
+        default:
+            ()
+        }
+        dismiss(animated: true)
     }
 }

@@ -54,8 +54,7 @@ class LanguageCell: UITableViewCell {
         languageLabel.snp.makeConstraints { make in
             make.height.equalTo(22)
             make.width.equalTo(89)
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
 }

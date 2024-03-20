@@ -24,7 +24,7 @@ class NoteView: UIViewController {
     
     private lazy var titleTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "Title"
+        view.placeholder = "Title".localized()
         let viewLeft = UIView(frame: CGRect(x: 0, y: 0, width: 13, height: 4))
         view.leftViewMode = .always
         view.leftView = viewLeft
@@ -62,7 +62,7 @@ class NoteView: UIViewController {
     
     private lazy var saveButton: UIButton = {
         let view = UIButton(type: .system)
-        view.setTitle("Save", for: .normal)
+        view.setTitle("Save".localized(), for: .normal)
         view.backgroundColor = .lightGray
         view.layer.cornerRadius = 23
         view.tintColor = .white
@@ -103,10 +103,10 @@ class NoteView: UIViewController {
     }
     
     private func setupNavBarItem() {
-        navigationItem.title = "Note"
+        navigationItem.title = "Note".localized()
         let customLeftButton = UIButton(type: .system)
         customLeftButton.tintColor = .black
-        customLeftButton.setTitle("Home", for: .normal)
+        customLeftButton.setTitle("Home".localized(), for: .normal)
         customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
         if UserDefaults.standard.bool(forKey: "theme") == true {
             customLeftButton.tintColor = .white
@@ -154,11 +154,11 @@ class NoteView: UIViewController {
     
     @objc func trashButtonTapped() {
         guard let note = note else { return }
-        let alert = UIAlertController(title: "Удаление", message: "Удалить заметку?", preferredStyle: .alert)
-        let acceptAlert = UIAlertAction(title: "Да", style: .destructive) { action in
+        let alert = UIAlertController(title: "Delete".localized(), message: "Delete note?".localized(), preferredStyle: .alert)
+        let acceptAlert = UIAlertAction(title: "Yes".localized(), style: .destructive) { action in
             self.controller?.onDeleteNote(id: note.id ?? "")
         }
-        let actionDecline = UIAlertAction(title: "Нет", style: .cancel)
+        let actionDecline = UIAlertAction(title: "No".localized(), style: .cancel)
         alert.addAction(actionDecline)
         alert.addAction(acceptAlert)
         present(alert, animated: true)
@@ -206,8 +206,8 @@ extension NoteView: NoteViewProtocol {
     }
     
     func failureAddNote() {
-        let alert = UIAlertController(title: "Ошибка", message: "Не удалось сохранить заметку!", preferredStyle: .alert)
-        let acceptAlert = UIAlertAction(title: "Назад", style: .cancel)
+        let alert = UIAlertController(title: "Error".localized(), message: "Failed to delete note!".localized(), preferredStyle: .alert)
+        let acceptAlert = UIAlertAction(title: "Back", style: .cancel)
         alert.addAction(acceptAlert)
         present(alert, animated: true)
     }
@@ -215,8 +215,8 @@ extension NoteView: NoteViewProtocol {
         navigationController?.popViewController(animated: true)
     }
     func failureDelete() {
-        let alert = UIAlertController(title: "Ошибка", message: "Не удалось удалить заметку!", preferredStyle: .alert)
-        let acceptAlert = UIAlertAction(title: "Вернуться", style: .destructive)
+        let alert = UIAlertController(title: "Error".localized(), message: "Failed to delete note!".localized(), preferredStyle: .alert)
+        let acceptAlert = UIAlertAction(title: "Back".localized(), style: .destructive)
         alert.addAction(acceptAlert)
         present(alert, animated: true)
     }

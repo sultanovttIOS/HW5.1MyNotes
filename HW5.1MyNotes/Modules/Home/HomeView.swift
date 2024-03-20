@@ -18,12 +18,12 @@ class HomeView: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let view = UISearchBar()
         view.layer.cornerRadius = 10
-        view.placeholder = "Search"
+        view.placeholder = "Search".localized()
         view.searchTextField.addTarget(self, action: #selector(notesSearchBarEditingChanged), for: .editingChanged)
         return view
     }()
     
-    private lazy var titleLabel = MakerView.shared.makerLabel(text: "Notes", numberOfLines: 0,
+    private lazy var titleLabel = MakerView.shared.makerLabel(text: "Notes".localized(), numberOfLines: 0,
                                                               font: .systemFont(ofSize: 16, weight: .regular))
     private lazy var notesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -71,7 +71,7 @@ class HomeView: UIViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Home"
+        navigationItem.title = "Home".localized()
         let customButton = UIButton(type: .system)
         let image = UIImage(named: "settings_icon")
         let desiredSize = CGSize(width: 25, height: 25)

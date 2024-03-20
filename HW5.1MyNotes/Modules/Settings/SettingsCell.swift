@@ -38,7 +38,7 @@ class SettingsCell: UITableViewCell {
         let image = UIImage(named: "rightButton_icon")
         let desiredSize = CGSize(width: 8, height: 13.8)
         let scaledImage = image?.resized(to: desiredSize)
-        view.setTitle("Русский", for: .normal)
+        view.setTitle("English".localized(), for: .normal)
         view.tintColor = UIColor(named: "CustomTextColor")
         view.setTitleColor(.label, for: .normal)
         view.setImage(scaledImage, for: .normal)
@@ -95,7 +95,6 @@ class SettingsCell: UITableViewCell {
             make.trailing.equalTo(contentView).offset(-25)
             make.centerY.equalTo(contentView)
             make.height.equalTo(20)
-            rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         }
         contentView.addSubview(switchButton)
         switchButton.snp.makeConstraints { make in
@@ -107,8 +106,5 @@ class SettingsCell: UITableViewCell {
     }
     @objc func switchValueChanged(_ sender: UISwitch) {
         delegate?.didChangeTheme(isOn: switchButton.isOn)
-    }
-    @objc func rightButtonTapped() {
-        delegate?.didChangeLanguage()
     }
 }

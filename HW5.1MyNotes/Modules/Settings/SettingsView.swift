@@ -13,7 +13,6 @@ protocol SettingsViewProtocol {
 }
 protocol SettingsCellDelegate: AnyObject {
     func didChangeTheme(isOn: Bool)
-    func didChangeLanguage()
 }
 
 class SettingsView: UIViewController {
@@ -29,9 +28,9 @@ class SettingsView: UIViewController {
     }()
     
     private lazy var setData: [SettingsStruct] = [
-        SettingsStruct(image: "language_icon", title: "Язык", type: .withButton),
-        SettingsStruct(image: "them_icon", title: "Темная тема", type: .withSwitch),
-        SettingsStruct(image: "delete_icon", title: "Очистить данные", type: .none)]
+        SettingsStruct(image: "language_icon", title: "Choose language".localized(), type: .withButton),
+        SettingsStruct(image: "them_icon", title: "Choose theme".localized(), type: .withSwitch),
+        SettingsStruct(image: "delete_icon", title: "Clear data".localized(), type: .none)]
     
     deinit {
         print("Экран Settings уничтожился с памяти!")
@@ -60,6 +59,12 @@ class SettingsView: UIViewController {
         setupConstraints()
         controller = SettingsController(view: self)
     }
+    private func setupData() {
+        setData = [SettingsStruct(image: "language_icon", title: "Choose language".localized(), type: .withButton),
+                   SettingsStruct(image: "them_icon", title: "Choose theme".localized(), type: .withSwitch),
+                   SettingsStruct(image: "delete_icon", title: "Clear data".localized(), type: .none)]
+        settingsTableView.reloadData()
+    }
     
     private func setupConstraints() {
         view.addSubview(settingsTableView)
@@ -73,11 +78,11 @@ class SettingsView: UIViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Settings"
+        navigationItem.title = "Settings".localized()
         
         let customLeftButton = UIButton(type: .system)
         customLeftButton.tintColor = .black
-        customLeftButton.setTitle("Home", for: .normal)
+        customLeftButton.setTitle("Home".localized(), for: .normal)
         customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
         if UserDefaults.standard.bool(forKey: "theme") == true {
             customLeftButton.tintColor = .white
@@ -111,14 +116,26 @@ extension SettingsView: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            let alert = UIAlertController(title: "Удаление", message: "Удалить все заметки?", preferredStyle: .alert)
-            let acceptAlert = UIAlertAction(title: "Удалить", style: .destructive) { action in
+            let alert = UIAlertController(title: "Delete".localized(), message: "Delete all notes?".localized(), preferredStyle: .alert)
+            let acceptAlert = UIAlertAction(title: "Delete".localized(), style: .destructive) { action in
                 self.controller?.onDeleteNotes()
             }
-            let actionDecline = UIAlertAction(title: "Отменить", style: .cancel)
+            let actionDecline = UIAlertAction(title: "Cancel".localized(), style: .cancel)
             alert.addAction(actionDecline)
             alert.addAction(acceptAlert)
             present(alert, animated: true)
+        } else if indexPath.row == 0 {
+            let languageView = LanguageView()
+            languageView.delegate = self
+            let multiplier = 0.28
+            let customDetent = UISheetPresentationController.Detent.custom(resolver: { context in
+                languageView.view.frame.height * multiplier
+            })
+            if let sheet = languageView.sheetPresentationController {
+                sheet.detents = [customDetent, .medium()]
+                sheet.prefersGrabberVisible = true
+                self.present(languageView, animated: true)
+            }
         }
     }
 }
@@ -127,8 +144,8 @@ extension SettingsView: SettingsViewProtocol {
         navigationController?.popViewController(animated: true)
     }
     func failureDelete() {
-        let alert = UIAlertController(title: "Ошибка", message: "Не удалось удалить заметки!", preferredStyle: .alert)
-        let acceptAction = UIAlertAction(title: "OK", style: .cancel)
+        let alert = UIAlertController(title: "Error".localized(), message: "Failed to delete notes!".localized(), preferredStyle: .alert)
+        let acceptAction = UIAlertAction(title: "OK".localized(), style: .cancel)
         alert.addAction(acceptAction)
         present(alert, animated: true)
     }
@@ -142,7 +159,10 @@ extension SettingsView: SettingsCellDelegate {
             view.overrideUserInterfaceStyle = .light
         }
     }
-    func didChangeLanguage() {
-        present(LanguageView(), animated: true)
+}
+extension SettingsView: LanguageViewProtocol {
+    func didChangeLanguage(languageType: LanguageType) {
+      setupNavigationItem()
+        setupData()
     }
 }

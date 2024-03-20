@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  HW5.1MyNotes
+
+  Created by Alisher Sultanov on 19/3/24.
+  
+*/
+"Settings" = "Орнотуулар";
+"Home" = "Башкы болмо";
+"English" = "Кыргызча";
+"Choose language" = "Тилди тандоо";
+"Choose theme" = "Кара темасы";
+"Clear data" = "Маалыматты тазалоо";
+"Notes" = "Жазуулар";
+"Note" = "Жазуу";
+"Save" = "Сактоо";
+"Search" = "Издоо";
+"Title" = "Аталышы";
+"Yes" = "Ооба";
+"No" = "Жок";
+"Delete" = "Очуруу";
+"Delete note" = "Белгини очуруу";
+"Failed to delete notes" = "Жазуулар жок кылынбай калды";
+"Cancel" = "Жокко чыгаруу";
+"Delete all notes" = "Жазууларды очуруу";
+"OK" = "OK";
+"Error" = "Ката";

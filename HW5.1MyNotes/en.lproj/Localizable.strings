@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  HW5.1MyNotes
+
+  Created by Alisher Sultanov on 19/3/24.
+  
+*/
+"Settings" = "Settings";
+"Home" = "Home";
+"English" = "English";
+"Dark theme" = "Dark theme";
+"Choose language" = "Choose language";
+"Clear data" = "Clear data";
+"Notes" = "Notes";
+"Note" = "Note";
+"Search" = "Search";
+"Title" = "Title";
+"Yes" = "Yes";
+"No" = "No";
+"Delete" = "Delete";
+"Delete note" = "Delete note";
+"Failed to delete notes" = "Failed to delete notes";
+"Cancel" = "Cancel";
+"Delete all notes" = "Delete all notes";
+"OK" = "OK";
+"Error" = "Error";
