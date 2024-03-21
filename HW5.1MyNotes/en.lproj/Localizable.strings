@@ -18,9 +18,9 @@
 "Yes" = "Yes";
 "No" = "No";
 "Delete" = "Delete";
-"Delete note" = "Delete note";
+"Delete note?" = "Delete note?";
 "Failed to delete notes" = "Failed to delete notes";
 "Cancel" = "Cancel";
-"Delete all notes" = "Delete all notes";
+"Delete all notes?" = "Delete all notes?";
 "OK" = "OK";
 "Error" = "Error";

@@ -22,9 +22,14 @@ class HomeView: UIViewController {
         view.searchTextField.addTarget(self, action: #selector(notesSearchBarEditingChanged), for: .editingChanged)
         return view
     }()
-    
-    private lazy var titleLabel = MakerView.shared.makerLabel(text: "Notes".localized(), numberOfLines: 0,
-                                                              font: .systemFont(ofSize: 16, weight: .regular))
+    private lazy var titleLabel: UILabel = {
+        let view = UILabel()
+        view.text = "Notes".localized()
+        view.textColor = .label
+        view.textAlignment = .left
+        view.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        return view
+    }()
     private lazy var notesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
@@ -60,6 +65,10 @@ class HomeView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if UserDefaults.standard.bool(forKey: "selectedLanguage") == true {
+            
+        }
+
         navigationItem.hidesBackButton = true
         setupNavigationItem()
         if UserDefaults.standard.bool(forKey: "theme") == true {
@@ -71,7 +80,15 @@ class HomeView: UIViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Home".localized()
+        let titleText = UILabel()
+        titleText.text = "Home".localized()
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            titleText.textColor = .white
+        } else {
+            titleText.textColor = .black
+        }
+        navigationItem.titleView = titleText
+
         let customButton = UIButton(type: .system)
         let image = UIImage(named: "settings_icon")
         let desiredSize = CGSize(width: 25, height: 25)

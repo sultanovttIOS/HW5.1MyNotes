@@ -94,7 +94,6 @@ class NoteView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavBarItem()
-        
         if UserDefaults.standard.bool(forKey: "theme") == true {
             view.overrideUserInterfaceStyle = .dark
         } else {
@@ -103,7 +102,15 @@ class NoteView: UIViewController {
     }
     
     private func setupNavBarItem() {
-        navigationItem.title = "Note".localized()
+        let titleText = UILabel()
+        titleText.text = "Note".localized()
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            titleText.textColor = .white
+        } else {
+            titleText.textColor = .black
+        }
+        navigationItem.titleView = titleText
+
         let customLeftButton = UIButton(type: .system)
         customLeftButton.tintColor = .black
         customLeftButton.setTitle("Home".localized(), for: .normal)

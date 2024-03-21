@@ -11,10 +11,11 @@ class NoteCell: UICollectionViewCell {
     
     static var reuseId = "note_cell"
                 
-    let colors: [UIColor] = [UIColor(named: "CustomNotesViolet")!,
-                             UIColor(named: "CustomNSecondColor")!,
-                             UIColor(named: "CustomNThirdColor")!,
-                             UIColor(named: "CustomNFourthColor")!]
+    let colors: [UIColor] = [UIColor(named: "note_color1")!,
+                             UIColor(named: "note_color2")!,
+                             UIColor(named: "note_color3")!,
+                             UIColor(named: "note_color4")!,
+                             UIColor(named: "note_color5")!]
     
     private lazy var titleLabel: UILabel = {
         let view = UILabel()

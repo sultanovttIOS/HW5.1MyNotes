@@ -20,9 +20,9 @@
 "Yes" = "Да";
 "No" = "Нет";
 "Delete" = "Удалить";
-"Delete note" = "Удалить заметку";
+"Delete note?" = "Удалить заметку?";
 "Failed to delete notes" = "Не удалось удалить заметку";
 "Cancel" = "Отменить";
-"Delete all notes" = "Удалить все заметки";
+"Delete all notes?" = "Удалить все заметки?";
 "OK" = "ОК";
 "Error" = "Ошибка";

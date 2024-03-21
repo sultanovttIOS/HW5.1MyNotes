@@ -19,9 +19,9 @@
 "Yes" = "Ооба";
 "No" = "Жок";
 "Delete" = "Очуруу";
-"Delete note" = "Белгини очуруу";
+"Delete note?" = "Жазууну очуруу?";
 "Failed to delete notes" = "Жазуулар жок кылынбай калды";
 "Cancel" = "Жокко чыгаруу";
-"Delete all notes" = "Жазууларды очуруу";
+"Delete all notes?" = "Жазууларды очуруу?";
 "OK" = "OK";
 "Error" = "Ката";

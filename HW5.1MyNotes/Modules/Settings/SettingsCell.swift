@@ -12,6 +12,7 @@ struct SettingsStruct {
     let image: String
     let title: String
     let type: SettingsCellType
+    let description: String
 }
 
 enum SettingsCellType {
@@ -27,7 +28,11 @@ class SettingsCell: UITableViewCell {
     
     private lazy var photoView: UIImageView = {
         let view = UIImageView()
-        view.tintColor = UIColor(named: "CustomTextColor")
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            view.tintColor = .white
+        } else {
+            view.tintColor = .black
+        }
         return view
     }()
     
@@ -38,7 +43,6 @@ class SettingsCell: UITableViewCell {
         let image = UIImage(named: "rightButton_icon")
         let desiredSize = CGSize(width: 8, height: 13.8)
         let scaledImage = image?.resized(to: desiredSize)
-        view.setTitle("English".localized(), for: .normal)
         view.tintColor = UIColor(named: "CustomTextColor")
         view.setTitleColor(.label, for: .normal)
         view.setImage(scaledImage, for: .normal)
@@ -50,7 +54,6 @@ class SettingsCell: UITableViewCell {
     var switchButton: UISwitch = {
         let view = UISwitch()
         view.isOn = UserDefaults.standard.bool(forKey: "theme")
-        view.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         return view
     }()
     
@@ -64,13 +67,21 @@ class SettingsCell: UITableViewCell {
     }
     
     func fill(with: SettingsStruct) {
-        photoView.image = UIImage(named: with.image)
+        photoView.image = UIImage(named: with.image)?.withRenderingMode(.alwaysTemplate)
         titleLabel.text = with.title
+        rightButton.setTitle(with.description, for: .normal)
         switch with.type {
         case .withSwitch:
+            if UserDefaults.standard.bool(forKey: "theme") == true {
+                switchButton.isOn = true
+            } else {
+                switchButton.isOn = false
+            }
             rightButton.isHidden = true
+            switchButton.isHidden = false
         case .withButton:
             switchButton.isHidden = true
+            rightButton.isHidden = false
         case .none:
             rightButton.isHidden = true
             switchButton.isHidden = true
@@ -102,6 +113,7 @@ class SettingsCell: UITableViewCell {
             make.trailing.equalTo(contentView).offset(-25)
             make.width.equalTo(51)
             make.height.equalTo(31)
+            switchButton.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
         }
     }
     @objc func switchValueChanged(_ sender: UISwitch) {

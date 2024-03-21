@@ -29,8 +29,8 @@ class AppLanguageManager {
     }
     private func setCurrentLanguage(language: LanguageType) {
         currentLanguage = language
-        //TODO: Добавить UserDefaults сохранение
-    }
+        UserDefaults.standard.set(language.rawValue, forKey: "selectedLanguage")
+  }
     private func setCurrentBandlePath(languageCode: String) {
         guard let bundle = Bundle.main.path(forResource: languageCode, ofType: "lproj"), let langBundle = Bundle(path: bundle)
         else {

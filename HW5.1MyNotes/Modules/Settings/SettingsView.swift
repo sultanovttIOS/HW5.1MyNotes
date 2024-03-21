@@ -28,9 +28,12 @@ class SettingsView: UIViewController {
     }()
     
     private lazy var setData: [SettingsStruct] = [
-        SettingsStruct(image: "language_icon", title: "Choose language".localized(), type: .withButton),
-        SettingsStruct(image: "them_icon", title: "Choose theme".localized(), type: .withSwitch),
-        SettingsStruct(image: "delete_icon", title: "Clear data".localized(), type: .none)]
+        SettingsStruct(image: "language_icon", title: "Choose language".localized(),
+                       type: .withButton, description: "English".localized()),
+        SettingsStruct(image: "them_icon", title: "Choose theme".localized(),
+                       type: .withSwitch, description: ""),
+        SettingsStruct(image: "delete_icon", title: "Clear data".localized(),
+                       type: .none, description: "")]
     
     deinit {
         print("Экран Settings уничтожился с памяти!")
@@ -44,14 +47,18 @@ class SettingsView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        setupNavigationItem()
+        
+        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { _ in
+            self.setupNavigationItem()
+        }
         if UserDefaults.standard.bool(forKey: "theme") == true {
             view.overrideUserInterfaceStyle = .dark
+            navigationItem.titleView?.tintColor = .white
         } else {
             UserDefaults.standard.bool(forKey: "theme")
             view.overrideUserInterfaceStyle = .light
         }
-        setupNavigationItem()
     }
     
     private func setupUI() {
@@ -60,9 +67,12 @@ class SettingsView: UIViewController {
         controller = SettingsController(view: self)
     }
     private func setupData() {
-        setData = [SettingsStruct(image: "language_icon", title: "Choose language".localized(), type: .withButton),
-                   SettingsStruct(image: "them_icon", title: "Choose theme".localized(), type: .withSwitch),
-                   SettingsStruct(image: "delete_icon", title: "Clear data".localized(), type: .none)]
+        setData = [SettingsStruct(image: "language_icon", title: "Choose language".localized(),
+                                  type: .withButton, description: "English".localized()),
+                   SettingsStruct(image: "them_icon", title: "Choose theme".localized(),
+                                  type: .withSwitch, description: ""),
+                   SettingsStruct(image: "delete_icon", title: "Clear data".localized(), 
+                                  type: .none, description: "")]
         settingsTableView.reloadData()
     }
     
@@ -78,8 +88,15 @@ class SettingsView: UIViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Settings".localized()
-        
+            let titleText = UILabel()
+            titleText.text = "Settings".localized()
+            if UserDefaults.standard.bool(forKey: "theme") == true {
+                titleText.textColor = .white
+            } else {
+                titleText.textColor = .black
+            }
+            navigationItem.titleView = titleText
+    
         let customLeftButton = UIButton(type: .system)
         customLeftButton.tintColor = .black
         customLeftButton.setTitle("Home".localized(), for: .normal)
@@ -138,6 +155,15 @@ extension SettingsView: UITableViewDelegate {
             }
         }
     }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [self] _ in
+//            if UserDefaults.standard.bool(forKey: "theme") == true {
+//                self.settingsTableView.tintColor = .white
+//            } else {
+//                self.settingsTableView.tintColor = .black
+//            }
+//        }
+//    }
 }
 extension SettingsView: SettingsViewProtocol {
     func successDelete() {
