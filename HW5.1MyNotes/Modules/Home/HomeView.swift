@@ -65,9 +65,7 @@ class HomeView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if UserDefaults.standard.bool(forKey: "selectedLanguage") == true {
-            
-        }
+        //setAppLanguage(language: <#T##LanguageType#>)
 
         navigationItem.hidesBackButton = true
         setupNavigationItem()

@@ -42,6 +42,8 @@ class NoteView: UIViewController {
         view.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         view.autocorrectionType = .no
         view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        view.delegate = self
+        //view.addTarget(self, action: #selector(textFieldEdidtingChanged), for: .editingChanged)
         return view
     }()
     
@@ -110,7 +112,7 @@ class NoteView: UIViewController {
             titleText.textColor = .black
         }
         navigationItem.titleView = titleText
-
+        
         let customLeftButton = UIButton(type: .system)
         customLeftButton.tintColor = .black
         customLeftButton.setTitle("Home".localized(), for: .normal)
@@ -130,7 +132,7 @@ class NoteView: UIViewController {
             rightBarButton.tintColor = .black
         }
         navigationItem.rightBarButtonItem = rightBarButton
-     }
+    }
     
     @objc func backButtonTap() {
         navigationController?.popViewController(animated: true)
@@ -143,14 +145,27 @@ class NoteView: UIViewController {
     }
     
     @objc func textFieldEdidtingChanged() {
-        if let titleText = titleTextField.text {
-            if titleText.isEmpty {
-                saveButton.backgroundColor = .lightGray
-                saveButton.isEnabled = false
-            } else {
+        if let titleText = titleTextField.text, let viewText = notesTextView.text {
+            if !titleText.isEmpty || !viewText.isEmpty {
                 saveButton.isEnabled = true
                 saveButton.backgroundColor = UIColor(named: "CustomRed")
+            } else {
+                saveButton.isEnabled = true
+                saveButton.backgroundColor = .lightGray
             }
+        }
+    }
+    
+    private func updateSaveButtonState() {
+        guard let titleText = titleTextField.text, let viewText = notesTextView.text else {
+            return
+        }
+        if !titleText.isEmpty || !viewText.isEmpty {
+            saveButton.isEnabled = true
+            saveButton.backgroundColor = UIColor(named: "CustomRed")
+        } else {
+            saveButton.isEnabled = false
+            saveButton.backgroundColor = .lightGray
         }
     }
     
@@ -229,5 +244,10 @@ extension NoteView: NoteViewProtocol {
     }
     func successUpdateNote() {
         navigationController?.popViewController(animated: true)
+    }
+}
+extension NoteView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        updateSaveButtonState()
     }
 }

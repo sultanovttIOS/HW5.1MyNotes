@@ -155,15 +155,6 @@ extension SettingsView: UITableViewDelegate {
             }
         }
     }
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [self] _ in
-//            if UserDefaults.standard.bool(forKey: "theme") == true {
-//                self.settingsTableView.tintColor = .white
-//            } else {
-//                self.settingsTableView.tintColor = .black
-//            }
-//        }
-//    }
 }
 extension SettingsView: SettingsViewProtocol {
     func successDelete() {

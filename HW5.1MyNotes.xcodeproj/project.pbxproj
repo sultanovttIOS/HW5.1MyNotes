@@ -14,6 +14,8 @@
 		CE7E18442BA329E5008A83CF /* Note.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE7E18422BA329E5008A83CF /* Note.xcdatamodeld */; };
 		CE8559C32BA9E0AA005B1DE1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE8559C52BA9E0AA005B1DE1 /* Localizable.strings */; };
 		CE8559CA2BA9E15E005B1DE1 /* AppLanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8559C92BA9E15E005B1DE1 /* AppLanguageManager.swift */; };
+		CE8559CE2BAC2B56005B1DE1 /* LanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8559CD2BAC2B56005B1DE1 /* LanguageModel.swift */; };
+		CE8559D02BAC2B69005B1DE1 /* LanguageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8559CF2BAC2B69005B1DE1 /* LanguageController.swift */; };
 		CEA72C082B8A121B00D4566B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C072B8A121B00D4566B /* AppDelegate.swift */; };
 		CEA72C0A2B8A121B00D4566B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C092B8A121B00D4566B /* SceneDelegate.swift */; };
 		CEA72C0C2B8A121B00D4566B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA72C0B2B8A121B00D4566B /* HomeView.swift */; };
@@ -50,6 +52,8 @@
 		CE8559C62BA9E0AC005B1DE1 /* ky-KG */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ky-KG"; path = "ky-KG.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CE8559C72BA9E0AE005B1DE1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE8559C92BA9E15E005B1DE1 /* AppLanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageManager.swift; sourceTree = "<group>"; };
+		CE8559CD2BAC2B56005B1DE1 /* LanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModel.swift; sourceTree = "<group>"; };
+		CE8559CF2BAC2B69005B1DE1 /* LanguageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageController.swift; sourceTree = "<group>"; };
 		CEA72C042B8A121B00D4566B /* HW5.1MyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HW5.1MyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA72C072B8A121B00D4566B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEA72C092B8A121B00D4566B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 			children = (
 				CEAC3DD72BA8B66500394FAA /* LanguageView.swift */,
 				CEAC3DD92BA8B8A500394FAA /* LanguageCell.swift */,
+				CE8559CD2BAC2B56005B1DE1 /* LanguageModel.swift */,
+				CE8559CF2BAC2B69005B1DE1 /* LanguageController.swift */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 				CEAC3DD82BA8B66500394FAA /* LanguageView.swift in Sources */,
 				CEA72C312B8A4E0200D4566B /* SettingsCell.swift in Sources */,
 				CEA72C242B8A225000D4566B /* MakerView.swift in Sources */,
+				CE8559CE2BAC2B56005B1DE1 /* LanguageModel.swift in Sources */,
 				CEAC3DD42BA5B9E000394FAA /* NoteController.swift in Sources */,
 				CEA72C2A2B8A425700D4566B /* HomeController.swift in Sources */,
 				CE8559CA2BA9E15E005B1DE1 /* AppLanguageManager.swift in Sources */,
@@ -349,6 +356,7 @@
 				CE7E18442BA329E5008A83CF /* Note.xcdatamodeld in Sources */,
 				CE631A152B964AE800AF9523 /* OnBoardingCell.swift in Sources */,
 				CEE81A2A2BA01DF800EA8050 /* Note+CoreDataClass.swift in Sources */,
+				CE8559D02BAC2B69005B1DE1 /* LanguageController.swift in Sources */,
 				CEE81A222B9C88BF00EA8050 /* CustomRed.swift in Sources */,
 				CEA72C082B8A121B00D4566B /* AppDelegate.swift in Sources */,
 				CEE81A1F2B9C87F200EA8050 /* ImageSize.swift in Sources */,

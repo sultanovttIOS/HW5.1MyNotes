@@ -11,14 +11,16 @@ protocol LanguageViewProtocol: AnyObject {
     func didChangeLanguage(languageType: LanguageType)
 }
 class LanguageView: UIViewController {
-    
-    weak var delegate: LanguageViewProtocol?
 
-    private let setData: [FillLanguage] = [FillLanguage(image: "kyrgyzLanguage_icon", 
+    weak var delegate: LanguageViewProtocol?
+    
+    //private var controller: LanguageControllerProtocol?
+
+    private let setData: [FillLanguage] = [FillLanguage(image: "kg",
                                                         language: "Кыргызча"),
-                                           FillLanguage(image: "russianLanguage_icon",
+                                           FillLanguage(image: "ru",
                                                         language: "Русский"),
-                                           FillLanguage(image: "englishLanguage_icon",
+                                           FillLanguage(image: "en",
                                                         language: "English")]
     private lazy var languageLabel: UILabel = {
         let view = UILabel()
@@ -47,6 +49,7 @@ class LanguageView: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         setupConstraints()
+        //controller = LanguageController(view: self)
     }
     private func setupConstraints() {
         view.addSubview(languageLabel)
@@ -98,3 +101,23 @@ extension LanguageView: UITableViewDelegate {
         dismiss(animated: true)
     }
 }
+//extension LanguageView: LanguageViewProtocol {
+//    func didChangeLanguage(languageType: LanguageType) {
+////        if UserDefaults.standard.bool(forKey: "selectedLanguage") == true {
+////            
+////        }
+//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//            switch indexPath.row {
+//            case 0:
+//                didChangeLanguage(languageType: languageType)
+//            case 1:
+//                didChangeLanguage(languageType: languageType)
+//            case 2:
+//                didChangeLanguage(languageType: languageType)
+//            default:
+//                ()
+//            }
+//            dismiss(animated: true)
+//        }
+//    }
+//}
