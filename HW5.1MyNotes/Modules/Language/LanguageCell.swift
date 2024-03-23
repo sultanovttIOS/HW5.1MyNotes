@@ -16,6 +16,7 @@ class LanguageCell: UITableViewCell {
 
     private lazy var avatarImageView: UIImageView = {
         let view = UIImageView()
+        view.backgroundColor = .white
         view.contentMode = .scaleAspectFit
         return view
     }()

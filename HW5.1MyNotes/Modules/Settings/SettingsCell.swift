@@ -28,17 +28,13 @@ class SettingsCell: UITableViewCell {
     
     private lazy var photoView: UIImageView = {
         let view = UIImageView()
-        if UserDefaults.standard.bool(forKey: "theme") == true {
-            view.tintColor = .white
-        } else {
-            view.tintColor = .black
-        }
+        view.tintColor = .label
         return view
     }()
     
     private lazy var titleLabel = MakerView.shared.makerLabel(numberOfLines: 1, font: .systemFont(ofSize: 17))
     
-    var rightButton: UIButton = {
+    private lazy var rightButton: UIButton = {
         let view = UIButton(type: .system)
         let image = UIImage(named: "rightButton_icon")
         let desiredSize = CGSize(width: 8, height: 13.8)

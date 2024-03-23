@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HomeViewProtocol {
+protocol HomeViewProtocol: AnyObject {
     func successNotes(notes: [Note] )
 }
 
@@ -65,7 +65,6 @@ class HomeView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //setAppLanguage(language: <#T##LanguageType#>)
 
         navigationItem.hidesBackButton = true
         setupNavigationItem()

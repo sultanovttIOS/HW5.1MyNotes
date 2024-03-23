@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NoteControllerProtocol {
+protocol NoteControllerProtocol: AnyObject {
     func onAddNote(note: Note?, title: String, description: String)
     func onSuccessAddNote()
     func onFailureAddNote()
@@ -18,7 +18,7 @@ protocol NoteControllerProtocol {
 }
 
 class NoteController: NoteControllerProtocol {
-    private let view: NoteViewProtocol?
+    weak var view: NoteViewProtocol?
     var model: NoteModelProtocol?
     
     init(view: NoteViewProtocol) {

@@ -13,7 +13,7 @@ protocol SettingsControllerProtocol: AnyObject {
 
 class SettingsController {
     
-    var view: SettingsViewProtocol?
+    weak var view: SettingsViewProtocol?
     private var model: SettingsModelProtocol?
     
     init(view: SettingsViewProtocol) {

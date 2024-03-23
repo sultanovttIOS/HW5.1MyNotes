@@ -129,6 +129,7 @@
 			children = (
 				CEE81A282BA01DF800EA8050 /* Note+CoreDataClass.swift */,
 				CEE81A292BA01DF800EA8050 /* Note+CoreDataProperties.swift */,
+				CE8559C82BA9E11F005B1DE1 /* AppLanguageManager */,
 				CEE81A2C2BA01E2000EA8050 /* Services */,
 				CEE81A202B9C88A100EA8050 /* Extension+UIColor */,
 				CEE81A1D2B9C877300EA8050 /* Extension+ImageSize */,
@@ -172,7 +173,6 @@
 		CEA72C252B8A33F800D4566B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				CE8559C82BA9E11F005B1DE1 /* AppLanguageManager */,
 				CEAC3DDB2BA96B8700394FAA /* Language */,
 				CEE81A1A2B9C85BF00EA8050 /* Note */,
 				CE631A112B964A9300AF9523 /* OnBoarding */,

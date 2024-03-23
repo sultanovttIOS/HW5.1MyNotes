@@ -14,7 +14,7 @@ class LanguageView: UIViewController {
 
     weak var delegate: LanguageViewProtocol?
     
-    //private var controller: LanguageControllerProtocol?
+    private var controller: LanguageControllerProtocol?
 
     private let setData: [FillLanguage] = [FillLanguage(image: "kg",
                                                         language: "Кыргызча"),
@@ -42,14 +42,18 @@ class LanguageView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupUI()
     }
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
+        if UserDefaults.standard.bool(forKey: "theme") == true {
+            view.overrideUserInterfaceStyle = .dark
+        } else {
+            view.overrideUserInterfaceStyle = .light
+        }
         setupConstraints()
-        //controller = LanguageController(view: self)
+        controller = LanguageController(view: self)
     }
     private func setupConstraints() {
         view.addSubview(languageLabel)
@@ -87,37 +91,19 @@ extension LanguageView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            AppLanguageManager.shared.setAppLanguage(language: .kg)
-            delegate?.didChangeLanguage(languageType: .kg)
+            controller?.onChangeLanguage(language: .kg )
         case 1:
-            AppLanguageManager.shared.setAppLanguage(language: .ru)
-            delegate?.didChangeLanguage(languageType: .ru)
+            controller?.onChangeLanguage(language: .ru)
         case 2:
-            AppLanguageManager.shared.setAppLanguage(language: .en)
-            delegate?.didChangeLanguage(languageType: .en)
+            controller?.onChangeLanguage(language: .en)
         default:
             ()
         }
+        delegate?.didChangeLanguage(languageType: .en)
+    }
+}
+extension LanguageView: LanguageViewProtocol {
+    func didChangeLanguage(languageType: LanguageType) {
         dismiss(animated: true)
     }
 }
-//extension LanguageView: LanguageViewProtocol {
-//    func didChangeLanguage(languageType: LanguageType) {
-////        if UserDefaults.standard.bool(forKey: "selectedLanguage") == true {
-////            
-////        }
-//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//            switch indexPath.row {
-//            case 0:
-//                didChangeLanguage(languageType: languageType)
-//            case 1:
-//                didChangeLanguage(languageType: languageType)
-//            case 2:
-//                didChangeLanguage(languageType: languageType)
-//            default:
-//                ()
-//            }
-//            dismiss(animated: true)
-//        }
-//    }
-//}

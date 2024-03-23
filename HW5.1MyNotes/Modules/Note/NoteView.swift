@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NoteViewProtocol {
+protocol NoteViewProtocol: AnyObject {
     func successAddNote()
     func failureAddNote()
     func successDelete()
@@ -43,7 +43,6 @@ class NoteView: UIViewController {
         view.autocorrectionType = .no
         view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         view.delegate = self
-        //view.addTarget(self, action: #selector(textFieldEdidtingChanged), for: .editingChanged)
         return view
     }()
     

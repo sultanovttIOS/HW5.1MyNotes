@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SettingsViewProtocol {
+protocol SettingsViewProtocol: AnyObject {
     func successDelete()
     func failureDelete()
 }
@@ -35,6 +35,17 @@ class SettingsView: UIViewController {
         SettingsStruct(image: "delete_icon", title: "Clear data".localized(),
                        type: .none, description: "")]
     
+    func updateSettingsLanguage() {
+        setData = [SettingsStruct(image: "language_icon", title: "Choose language".localized(),
+                                  type: .withButton, description: "English".localized()),
+                   SettingsStruct(image: "them_icon", title: "Choose theme".localized(),
+                                  type: .withSwitch, description: ""),
+                   SettingsStruct(image: "delete_icon", title: "Clear data".localized(),
+                                  type: .none, description: "")]
+        settingsTableView.reloadData()
+        setupNavigationItem()
+    }
+    
     deinit {
         print("Экран Settings уничтожился с памяти!")
     }
@@ -47,8 +58,8 @@ class SettingsView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationItem()
-        
+        settingsTableView.reloadData()
+        // MARK: update navigationItem tintColor
         NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { _ in
             self.setupNavigationItem()
         }
@@ -63,17 +74,9 @@ class SettingsView: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
+        setupNavigationItem()
         setupConstraints()
         controller = SettingsController(view: self)
-    }
-    private func setupData() {
-        setData = [SettingsStruct(image: "language_icon", title: "Choose language".localized(),
-                                  type: .withButton, description: "English".localized()),
-                   SettingsStruct(image: "them_icon", title: "Choose theme".localized(),
-                                  type: .withSwitch, description: ""),
-                   SettingsStruct(image: "delete_icon", title: "Clear data".localized(), 
-                                  type: .none, description: "")]
-        settingsTableView.reloadData()
     }
     
     private func setupConstraints() {
@@ -144,7 +147,7 @@ extension SettingsView: UITableViewDelegate {
         } else if indexPath.row == 0 {
             let languageView = LanguageView()
             languageView.delegate = self
-            let multiplier = 0.28
+            let multiplier = 0.30
             let customDetent = UISheetPresentationController.Detent.custom(resolver: { context in
                 languageView.view.frame.height * multiplier
             })
@@ -179,7 +182,6 @@ extension SettingsView: SettingsCellDelegate {
 }
 extension SettingsView: LanguageViewProtocol {
     func didChangeLanguage(languageType: LanguageType) {
-      setupNavigationItem()
-        setupData()
+        updateSettingsLanguage()
     }
 }

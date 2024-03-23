@@ -6,22 +6,22 @@
 //
 
 import UIKit
-//
-//protocol LanguageModelProtocol {
-//    func changeLanguage(language: LanguageType)
-//}
-//class LanguageModel {
-//    private let appLanguageManager = AppLanguageManager.shared
-//    
-//    weak var controller: LanguageControllerProtocol?
-//    
-//    init(controller: LanguageControllerProtocol) {
-//        self.controller = controller
-//    }
-//}
-//extension LanguageModel: LanguageModelProtocol {
-//    func changeLanguage(language: LanguageType) {
-//        appLanguageManager.setAppLanguage(language: language)
-//        controller?.onSuccessChangeLanguage()
-//    }
-//}
+
+protocol LanguageModelProtocol {
+    func changeLanguage(language: LanguageType)
+}
+class LanguageModel {
+    private let appLanguageManager = AppLanguageManager.shared
+    
+    weak var controller: LanguageControllerProtocol?
+    
+    init(controller: LanguageControllerProtocol) {
+        self.controller = controller
+    }
+}
+extension LanguageModel: LanguageModelProtocol {
+    func changeLanguage(language: LanguageType) {
+        appLanguageManager.setAppLanguage(language: language)
+        controller?.onSuccessChangeLanguage(language: language)
+    }
+}

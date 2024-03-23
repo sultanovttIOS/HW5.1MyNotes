@@ -13,7 +13,7 @@ protocol HomeControllerProtocol {
 }
 
 class HomeController: HomeControllerProtocol {
-    private let view: HomeViewProtocol? 
+    weak var view: HomeViewProtocol? 
     
     private var model: HomeModelProtocol?
     
