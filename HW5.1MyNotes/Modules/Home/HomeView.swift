@@ -18,13 +18,11 @@ class HomeView: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let view = UISearchBar()
         view.layer.cornerRadius = 10
-        view.placeholder = "Search".localized()
         view.searchTextField.addTarget(self, action: #selector(notesSearchBarEditingChanged), for: .editingChanged)
         return view
     }()
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
-        view.text = "Notes".localized()
         view.textColor = .label
         view.textAlignment = .left
         view.font = UIFont.systemFont(ofSize: 16, weight: .medium)
@@ -65,7 +63,8 @@ class HomeView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        searchBar.placeholder = "Search".localized()
+        titleLabel.text = "Notes".localized()
         navigationItem.hidesBackButton = true
         setupNavigationItem()
         if UserDefaults.standard.bool(forKey: "theme") == true {
