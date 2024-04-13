@@ -21,13 +21,16 @@ class SettingsController {
         self.model = SettingsModel(controller: self)
     }
 }
+
 extension SettingsController: SettingsControllerProtocol {
     func onSuccessDelete() {
         view?.successDelete()
     }
+    
     func onFailureDelete() {
         view?.failureDelete()
     }
+    
     func onDeleteNotes() {
         model?.deleteNotes()
     }

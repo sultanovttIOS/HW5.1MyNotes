@@ -55,6 +55,7 @@ class LanguageView: UIViewController {
         setupConstraints()
         controller = LanguageController(view: self)
     }
+    
     private func setupConstraints() {
         view.addSubview(languageLabel)
         languageLabel.snp.makeConstraints { make in
@@ -84,10 +85,12 @@ extension LanguageView: UITableViewDataSource {
         return cell
     }
 }
+
 extension LanguageView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
@@ -102,6 +105,7 @@ extension LanguageView: UITableViewDelegate {
         delegate?.didChangeLanguage(languageType: .en)
     }
 }
+
 extension LanguageView: LanguageViewProtocol {
     func didChangeLanguage(languageType: LanguageType) {
         dismiss(animated: true)

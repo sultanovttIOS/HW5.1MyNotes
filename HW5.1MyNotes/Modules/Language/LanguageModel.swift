@@ -19,6 +19,7 @@ class LanguageModel {
         self.controller = controller
     }
 }
+
 extension LanguageModel: LanguageModelProtocol {
     func changeLanguage(language: LanguageType) {
         appLanguageManager.setAppLanguage(language: language)

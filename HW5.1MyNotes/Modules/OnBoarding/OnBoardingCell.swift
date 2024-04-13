@@ -47,6 +47,7 @@ class OnBoardingCell: UICollectionViewCell {
         backgroundColor = .white
         setupConstraints()
     }
+    
     private func setupConstraints() {
         contentView.addSubview(conteinerView)
         conteinerView.snp.makeConstraints { make in

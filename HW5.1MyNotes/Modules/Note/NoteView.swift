@@ -30,7 +30,8 @@ class NoteView: UIViewController {
         view.leftView = viewLeft
         view.layer.cornerRadius = 18
         view.layer.borderWidth = 0.5
-        view.addTarget(self, action: #selector(textFieldEdidtingChanged), for: .editingChanged)
+        view.addTarget(self, action: #selector(textFieldEdidtingChanged), 
+                       for: .editingChanged)
         return view
     }()
     
@@ -39,7 +40,8 @@ class NoteView: UIViewController {
         view.backgroundColor = UIColor(named: "CustomTextViewColor")
         view.textColor = UIColor(named: "CustomTextColor")
         view.layer.cornerRadius = 14
-        view.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        view.textContainerInset = UIEdgeInsets(top: 10, left: 10, 
+                                               bottom: 10, right: 10)
         view.autocorrectionType = .no
         view.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         view.delegate = self
@@ -50,7 +52,8 @@ class NoteView: UIViewController {
         let view = UIButton(type: .system)
         view.setImage(UIImage(named: "copy_icon"), for: .normal)
         view.tintColor = .lightGray
-        view.addTarget(self, action: #selector(copyButtonTapped), for: .touchUpInside)
+        view.addTarget(self, action: #selector(copyButtonTapped), 
+                       for: .touchUpInside)
         return  view
     }()
     
@@ -68,7 +71,8 @@ class NoteView: UIViewController {
         view.layer.cornerRadius = 23
         view.tintColor = .white
         view.isEnabled = false
-        view.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        view.addTarget(self, action: #selector(saveButtonTapped), 
+                       for: .touchUpInside)
         return view
     }()
     
@@ -115,7 +119,8 @@ class NoteView: UIViewController {
         let customLeftButton = UIButton(type: .system)
         customLeftButton.tintColor = .black
         customLeftButton.setTitle("Home".localized(), for: .normal)
-        customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
+        customLeftButton.addTarget(self, action: #selector(backButtonTap), 
+                                   for: .touchUpInside)
         if UserDefaults.standard.bool(forKey: "theme") == true {
             customLeftButton.tintColor = .white
         } else {
@@ -124,7 +129,9 @@ class NoteView: UIViewController {
         let leftBarButton = UIBarButtonItem(customView: customLeftButton)
         navigationItem.leftBarButtonItem = leftBarButton
         
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(trashButtonTapped))
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "trash"),
+                                             style: .plain, target: self,
+                                             action: #selector(trashButtonTapped))
         if UserDefaults.standard.bool(forKey: "theme") == true {
             rightBarButton.tintColor = .white
         } else {
@@ -169,14 +176,20 @@ class NoteView: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        controller?.onAddNote(note: note, title: titleTextField.text ?? "", description: notesTextView.text)
+        controller?.onAddNote(
+            note: note,
+            title: titleTextField.text ?? "",
+            description: notesTextView.text)
         successUpdateNote()
     }
     
     @objc func trashButtonTapped() {
         guard let note = note else { return }
-        let alert = UIAlertController(title: "Delete".localized(), message: "Delete note?".localized(), preferredStyle: .alert)
-        let acceptAlert = UIAlertAction(title: "Yes".localized(), style: .destructive) { action in
+        let alert = UIAlertController(title: "Delete".localized(),
+                                      message: "Delete note?".localized(),
+                                      preferredStyle: .alert)
+        let acceptAlert = UIAlertAction(title: "Yes".localized(),
+                                        style: .destructive) { action in
             self.controller?.onDeleteNote(id: note.id ?? "")
         }
         let actionDecline = UIAlertAction(title: "No".localized(), style: .cancel)
@@ -227,24 +240,32 @@ extension NoteView: NoteViewProtocol {
     }
     
     func failureAddNote() {
-        let alert = UIAlertController(title: "Error".localized(), message: "Failed to delete note!".localized(), preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error".localized(), 
+                                      message: "Failed to delete note!".localized(),
+                                      preferredStyle: .alert)
         let acceptAlert = UIAlertAction(title: "Back", style: .cancel)
         alert.addAction(acceptAlert)
         present(alert, animated: true)
     }
+    
     func successDelete() {
         navigationController?.popViewController(animated: true)
     }
+    
     func failureDelete() {
-        let alert = UIAlertController(title: "Error".localized(), message: "Failed to delete note!".localized(), preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error".localized(), 
+                                      message: "Failed to delete note!".localized(),
+                                      preferredStyle: .alert)
         let acceptAlert = UIAlertAction(title: "Back".localized(), style: .destructive)
         alert.addAction(acceptAlert)
         present(alert, animated: true)
     }
+    
     func successUpdateNote() {
         navigationController?.popViewController(animated: true)
     }
 }
+
 extension NoteView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         updateSaveButtonState()

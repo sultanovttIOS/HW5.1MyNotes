@@ -32,7 +32,13 @@ class SettingsCell: UITableViewCell {
         return view
     }()
     
-    private lazy var titleLabel = MakerView.shared.makerLabel(numberOfLines: 1, font: .systemFont(ofSize: 17))
+    private lazy var titleLabel: UILabel = {
+        let view = UILabel()
+        view.font = UIFont.systemFont(ofSize: 17)
+        view.textColor = .label
+        view.textAlignment = .left
+        return view
+    }()
     
     private lazy var rightButton: UIButton = {
         let view = UIButton(type: .system)
@@ -58,6 +64,7 @@ class SettingsCell: UITableViewCell {
         setupConstraints()
         contentView.backgroundColor = .secondarySystemBackground
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -91,27 +98,32 @@ class SettingsCell: UITableViewCell {
             make.leading.equalToSuperview().offset(16)
             make.width.height.equalTo(24)
         }
+        
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(photoView.snp.trailing).offset(13)
             make.height.equalTo(24)
         }
+        
         contentView.addSubview(rightButton)
         rightButton.snp.makeConstraints { make in
             make.trailing.equalTo(contentView).offset(-25)
             make.centerY.equalTo(contentView)
             make.height.equalTo(20)
         }
+        
         contentView.addSubview(switchButton)
         switchButton.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.trailing.equalTo(contentView).offset(-25)
             make.width.equalTo(51)
             make.height.equalTo(31)
-            switchButton.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
+            switchButton.addTarget(self, action: #selector(switchValueChanged), 
+                                   for: .valueChanged)
         }
     }
+    
     @objc func switchValueChanged(_ sender: UISwitch) {
         delegate?.didChangeTheme(isOn: switchButton.isOn)
     }

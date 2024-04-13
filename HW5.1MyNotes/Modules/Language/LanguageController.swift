@@ -12,6 +12,7 @@ protocol LanguageControllerProtocol: AnyObject {
 }
 class LanguageController {
     private var model: LanguageModelProtocol?
+    
     weak var view: LanguageViewProtocol?
     
     init(view: LanguageViewProtocol) {
@@ -19,10 +20,12 @@ class LanguageController {
         self.model = LanguageModel(controller: self)
     }
 }
+
 extension LanguageController: LanguageControllerProtocol {
     func onChangeLanguage(language: LanguageType) {
         model?.changeLanguage(language: language)
     }
+    
     func onSuccessChangeLanguage(language: LanguageType) {
         view?.didChangeLanguage(languageType: language)
     }

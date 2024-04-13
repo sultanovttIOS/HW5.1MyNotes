@@ -32,17 +32,21 @@ class LanguageCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func fill(with: FillLanguage) {
         avatarImageView.image = UIImage(named: with.image)
         languageLabel.text = with.language
     }
+    
     private func setupUI() {
         contentView.backgroundColor = .secondarySystemBackground
         setupConstraints()
     }
+    
     private func setupConstraints() {
         contentView.addSubview(avatarImageView)
         avatarImageView.snp.makeConstraints { make in

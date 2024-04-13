@@ -22,26 +22,35 @@ class SettingsView: UIViewController {
         let view = UITableView()
         view.delegate = self
         view.dataSource = self
-        view.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reiseID)
+        view.register(
+            SettingsCell.self,
+            forCellReuseIdentifier: SettingsCell.reiseID)
         view.isScrollEnabled = false
         return view
     }()
     
     private lazy var setData: [SettingsStruct] = [
-        SettingsStruct(image: "language_icon", title: "Choose language".localized(),
-                       type: .withButton, description: "English".localized()),
-        SettingsStruct(image: "them_icon", title: "Choose theme".localized(),
-                       type: .withSwitch, description: ""),
-        SettingsStruct(image: "delete_icon", title: "Clear data".localized(),
-                       type: .none, description: "")]
+        SettingsStruct(
+            image: "language_icon", title: "Choose language".localized(),
+            type: .withButton, description: "English".localized()),
+        SettingsStruct(
+            image: "them_icon", title: "Choose theme".localized(),
+            type: .withSwitch, description: ""),
+        SettingsStruct(
+            image: "delete_icon", title: "Clear data".localized(),
+            type: .none, description: "")]
     
     func updateSettingsLanguage() {
-        setData = [SettingsStruct(image: "language_icon", title: "Choose language".localized(),
-                                  type: .withButton, description: "English".localized()),
-                   SettingsStruct(image: "them_icon", title: "Choose theme".localized(),
-                                  type: .withSwitch, description: ""),
-                   SettingsStruct(image: "delete_icon", title: "Clear data".localized(),
-                                  type: .none, description: "")]
+        setData = [
+            SettingsStruct(
+            image: "language_icon", title: "Choose language".localized(),
+            type: .withButton, description: "English".localized()),
+            SettingsStruct(
+            image: "them_icon", title: "Choose theme".localized(),
+            type: .withSwitch, description: ""),
+            SettingsStruct(
+            image: "delete_icon", title: "Clear data".localized(),
+            type: .none, description: "")]
         settingsTableView.reloadData()
         setupNavigationItem()
     }
@@ -60,7 +69,9 @@ class SettingsView: UIViewController {
         super.viewWillAppear(animated)
         settingsTableView.reloadData()
         // MARK: update navigationItem tintColor
-        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { _ in
+        NotificationCenter.default.addObserver(
+            forName: UserDefaults.didChangeNotification,
+            object: nil, queue: .main) { _ in
             self.setupNavigationItem()
         }
         if UserDefaults.standard.bool(forKey: "theme") == true {
@@ -103,7 +114,8 @@ class SettingsView: UIViewController {
         let customLeftButton = UIButton(type: .system)
         customLeftButton.tintColor = .black
         customLeftButton.setTitle("Home".localized(), for: .normal)
-        customLeftButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
+        customLeftButton.addTarget(self, action: #selector(backButtonTap), 
+                                   for: .touchUpInside)
         if UserDefaults.standard.bool(forKey: "theme") == true {
             customLeftButton.tintColor = .white
         } else {
@@ -119,10 +131,13 @@ class SettingsView: UIViewController {
 }
 
 extension SettingsView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, 
+                   numberOfRowsInSection section: Int) -> Int {
         setData.count
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reiseID,
                                                  for: indexPath) as! SettingsCell
         cell.delegate = self
@@ -130,17 +145,25 @@ extension SettingsView: UITableViewDataSource {
         return cell
     }
 }
+
 extension SettingsView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            let alert = UIAlertController(title: "Delete".localized(), message: "Delete all notes?".localized(), preferredStyle: .alert)
-            let acceptAlert = UIAlertAction(title: "Delete".localized(), style: .destructive) { action in
+            let alert = UIAlertController(title: "Delete".localized(), 
+                                          message: "Delete all notes?".localized(), 
+                                          preferredStyle: .alert)
+            let acceptAlert = UIAlertAction(title: "Delete".localized(),
+                                            style: .destructive) { action in
                 self.controller?.onDeleteNotes()
             }
-            let actionDecline = UIAlertAction(title: "Cancel".localized(), style: .cancel)
+            let actionDecline = UIAlertAction(title: "Cancel".localized(),
+                                              style: .cancel)
             alert.addAction(actionDecline)
             alert.addAction(acceptAlert)
             present(alert, animated: true)
@@ -159,17 +182,22 @@ extension SettingsView: UITableViewDelegate {
         }
     }
 }
+
 extension SettingsView: SettingsViewProtocol {
     func successDelete() {
         navigationController?.popViewController(animated: true)
     }
+    
     func failureDelete() {
-        let alert = UIAlertController(title: "Error".localized(), message: "Failed to delete notes!".localized(), preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error".localized(),
+                                      message: "Failed to delete notes!".localized(),
+                                      preferredStyle: .alert)
         let acceptAction = UIAlertAction(title: "OK".localized(), style: .cancel)
         alert.addAction(acceptAction)
         present(alert, animated: true)
     }
 }
+
 extension SettingsView: SettingsCellDelegate {
     func didChangeTheme(isOn: Bool) {
         UserDefaults.standard.set(isOn, forKey: "theme")
@@ -180,6 +208,7 @@ extension SettingsView: SettingsCellDelegate {
         }
     }
 }
+
 extension SettingsView: LanguageViewProtocol {
     func didChangeLanguage(languageType: LanguageType) {
         updateSettingsLanguage()

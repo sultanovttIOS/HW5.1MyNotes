@@ -185,10 +185,10 @@
 		CEA72C262B8A340600D4566B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				CEA72C272B8A342E00D4566B /* NoteCell.swift */,
 				CEA72C0B2B8A121B00D4566B /* HomeView.swift */,
 				CEA72C292B8A425700D4566B /* HomeController.swift */,
 				CEA72C2B2B8A426400D4566B /* HomeModel.swift */,
-				CEA72C272B8A342E00D4566B /* NoteCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";

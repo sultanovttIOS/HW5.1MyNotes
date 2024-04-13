@@ -26,6 +26,7 @@ class HomeModel: HomeModelProtocol {
         notes = coreDataService.fetchNotes()
         controller?.onSuccessNotes(notes: notes)
     }
+    
     func searchNotes(text: String) {
         filteredNotes = []
         if text.isEmpty {

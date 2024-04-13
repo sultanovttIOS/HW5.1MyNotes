@@ -18,9 +18,11 @@ class HomeView: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let view = UISearchBar()
         view.layer.cornerRadius = 10
-        view.searchTextField.addTarget(self, action: #selector(notesSearchBarEditingChanged), for: .editingChanged)
+        view.searchTextField.addTarget(self, action: #selector(notesSearchBarEditingChanged), 
+                                       for: .editingChanged)
         return view
     }()
+    
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .label
@@ -28,6 +30,7 @@ class HomeView: UIViewController {
         view.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return view
     }()
+    
     private lazy var notesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
@@ -51,7 +54,6 @@ class HomeView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     
@@ -91,7 +93,8 @@ class HomeView: UIViewController {
         let scaledImage = image?.resized(to: desiredSize)
         customButton.setImage(scaledImage, for: .normal)
         customButton.tintColor = .black
-        customButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
+        customButton.addTarget(self, action: #selector(settingsButtonTapped),
+                               for: .touchUpInside)
         
         if UserDefaults.standard.bool(forKey: "theme") == true {
             customButton.tintColor = .white
@@ -146,12 +149,14 @@ class HomeView: UIViewController {
 }
 
 extension HomeView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+    func collectionView(_ collectionView: UICollectionView, 
+                        layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 12) / 2, height: 100)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         let newNoteView = NoteView()
         newNoteView.note = notes[indexPath.row]
         navigationController?.pushViewController(newNoteView, animated: true)
@@ -159,12 +164,15 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, 
+                        numberOfItemsInSection section: Int) -> Int {
         notes.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCell.reuseId, for: indexPath) as! NoteCell
+    func collectionView(_ collectionView: UICollectionView, 
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoteCell.reuseId, 
+                                                      for: indexPath) as! NoteCell
         cell.fill(title: notes[indexPath.row].title ?? "" )
         return cell
     }
